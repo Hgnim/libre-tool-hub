@@ -1,4 +1,6 @@
 {
-  "test": "这是一个公共的测试文本",
-  "public": "这是public"
+  "global": {
+    "test": "这是一个公共的测试文本",
+    "public": "这是public"
+  }
 }

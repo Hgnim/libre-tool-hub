@@ -1,5 +1,4 @@
-import type { WritableComputedRef } from 'vue'
-import {clearLocale, i18n, loadLocale} from "@/plugins/i18n.ts";
+import {i18nGlobal, loadLocale} from "@/plugins/i18n.ts";
 
 /**
  * 切换语言
@@ -7,9 +6,9 @@ import {clearLocale, i18n, loadLocale} from "@/plugins/i18n.ts";
  * @param viewName 当不留空和不为null时，根据其值调用viewAutoLoadLocale函数
  */
 export async function switchLocale(locale: string,viewName:string|null = null) {
-    if ((i18n.global.locale as WritableComputedRef<string>).value === locale) return
+    if (i18nGlobal.locale.value === locale) return
 
-    (i18n.global.locale as WritableComputedRef<string>).value = locale
+    i18nGlobal.locale.value = locale
 
     if (viewName)
         await viewAutoLoadLocale(viewName);
@@ -23,21 +22,16 @@ export async function viewAutoLoadLocale(viewName:string){
     /**
      * 加载语言
      * @param loca 语言类型
-     * @param doClear 加载前是否执行清除操作
      */
-    async function loadLoc(loca:string,doClear:boolean){
-
-        if (doClear)
-            await clearLocale(loca);//清空目标语言
-        try {await loadLocale(loca);/*加载全局语言*/}catch(e){console.log(e)}
-        try {await loadLocale(loca, `${viewName}.${loca}`);/*加载view私有语言*/}catch(e){console.log(e)}
-
+    async function loadLoc(loca:string){
+        await loadLocale(loca);//加载全局语言
+        await loadLocale(loca, `${viewName}.${loca}`);//加载view私有语言
     }
-    const loc:string =(i18n.global.locale as WritableComputedRef<string>).value;
-    await loadLoc(loc,true);
+    const loc:string =i18nGlobal.locale.value;
+    await loadLoc(loc);
 
-    const backLoc = (i18n.global.fallbackLocale as WritableComputedRef<string[]>).value;
+    const backLoc:string[] = i18nGlobal.fallbackLocale.value as string[];
     backLoc.forEach((l:string) =>{
-        loadLoc(l,false);
+        loadLoc(l);
     })
 }

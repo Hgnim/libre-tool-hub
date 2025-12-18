@@ -1,4 +1,6 @@
 {
-  "test": "this is a Home's test text",
-  "home": "this is Home"
+  "home": {
+    "test": "this is a Home's test text",
+    "home": "this is Home"
+  }
 }

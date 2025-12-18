@@ -1,4 +1,6 @@
 {
-  "test": "这是一个Home的测试文本",
-  "home": "这是home"
+  "home": {
+    "test": "这是一个Home的测试文本",
+    "home": "这是home"
+  }
 }
