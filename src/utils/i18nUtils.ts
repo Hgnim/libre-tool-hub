@@ -1,4 +1,5 @@
 import {i18nGlobal, loadLocale} from "@/plugins/i18n.ts";
+import {useI18n} from "vue-i18n";
 
 /**
  * 切换语言
@@ -24,7 +25,7 @@ export async function viewAutoLoadLocale(viewName:string){
      * @param loca 语言类型
      */
     async function loadLoc(loca:string){
-        await loadLocale(loca);//加载全局语言
+        //await loadLocale(loca);//加载全局语言
         await loadLocale(loca, `${viewName}.${loca}`);//加载view私有语言
     }
     const loc:string =i18nGlobal.locale.value;
@@ -34,4 +35,27 @@ export async function viewAutoLoadLocale(viewName:string){
     backLoc.forEach((l:string) =>{
         loadLoc(l);
     })
+}
+
+/**
+ * 加载全局语言
+ */
+export async function loadGlobalLocale(){
+    await loadLocale(i18nGlobal.locale.value);
+    const backLoc:string[] = i18nGlobal.fallbackLocale.value as string[];
+    backLoc.forEach((l:string) =>{
+        loadLocale(l);
+    })
+}
+
+export function autoUseI18n(){
+    const { t:gt } = useI18n({//访问全局语言
+        inheritLocale: true,
+        useScope: 'global'
+    })
+    const { t:lt } = useI18n({//仅供访问嵌入式语言
+        inheritLocale: true,
+        useScope: 'local'
+    })
+    return {gt, lt};
 }

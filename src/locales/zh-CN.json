@@ -1,6 +1,5 @@
 {
   "global": {
-    "test": "这是一个公共的测试文本",
-    "public": "这是public"
+    "title": "自由工具中心"
   }
 }
