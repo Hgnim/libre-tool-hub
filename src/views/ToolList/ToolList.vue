@@ -7,7 +7,7 @@ useTitle(`${t('title')}${gt('global.title')}`);
 </script>
 
 <template>
-<router-link to="">{{t('baseConv')}}</router-link>
+<router-link :to="{name: 'tool-baseConversion'}">{{t('baseConv')}}</router-link>
 </template>
 
 <style scoped lang="scss">
