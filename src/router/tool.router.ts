@@ -1,6 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-export type appendix_mdFile_type=()=>Promise<{default:string}>;
 export default [
     {
         path: '/tool',
@@ -16,7 +15,7 @@ export default [
                 name: 'tool-baseConversion',
                 component: () => import('@/views/tools/BaseConversion/BaseConversion.vue'),
                 meta: {
-                    appendix_mdFile: (()=>import('@/views/tools/BaseConversion/md/appendix.md?raw')) as appendix_mdFile_type,
+                    appendix_mdPath:'/assets/md/views/tools/BaseConversion/appendix.{lang}.md',
                 },
             },
         ]

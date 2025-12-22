@@ -59,3 +59,23 @@ export function autoUseI18n(){
     })
     return {gt, lt};
 }
+
+/**
+ * 获取当前使用的语言名，例：zh-CN、en-US
+ */
+export function getCurrentLocale():string{
+    return i18nGlobal.locale.value;
+}
+
+/**
+ * 获取回退语言
+ */
+export function getFallbackLocale(forceArray:boolean=false):string|string[]{
+    if (forceArray){
+        const fblv:string|string[]=i18nGlobal.fallbackLocale.value;
+        if (Array.isArray(fblv))
+            return fblv;
+        else
+            return [fblv];
+    }else return i18nGlobal.fallbackLocale.value;
+}
