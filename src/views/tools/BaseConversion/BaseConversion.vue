@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import {onMounted, type Ref, ref} from "vue";
 import {isDev} from "@/ts/global/packMode.ts";
+import {autoUseI18n} from "@/utils/i18nUtils.ts";
+import {useTitle} from "@vueuse/core";
+const {lt:t,gt}=autoUseI18n();
+useTitle(`${t('title')}${gt('global.title')}`);
 
 const autoConvSw:Ref<HTMLInputElement|null>=ref(null);
 
@@ -103,30 +107,30 @@ onMounted(() => {
   <div class="input-group center mb-2">
     <div class="form-check form-switch">
       <input ref="autoConvSw" @change="autoConvSw_change" class="form-check-input" type="checkbox" role="switch" checked>
-      <label class="form-check-label">自动转换</label>
+      <label class="form-check-label">{{t('autoConv')}}</label>
     </div>
   </div>
   <div class="input-group mb-2">
-    <span class="input-group-text">输入</span>
-    <input ref="inputValue" @input="inputValue_input" :class="{ 'is-invalid': inputValueIsInvalid }" type="text" class="form-control" placeholder="输入"/>
+    <span class="input-group-text">{{t('input')}}</span>
+    <input ref="inputValue" @input="inputValue_input" :class="{ 'is-invalid': inputValueIsInvalid }" type="text" class="form-control" :placeholder="t('input')"/>
     <select ref="inputTypeSelect" @change="inputValue_input" class="input-group-text">
-      <option value="2">二进制</option>
-      <option value="8">八进制</option>
-      <option value="10" selected>十进制</option>
-      <option value="16">十六进制</option>
+      <option value="2">{{t('base-2')}}</option>
+      <option value="8">{{t('base-8')}}</option>
+      <option value="10" selected>{{t('base-10')}}</option>
+      <option value="16">{{t('base-16')}}</option>
     </select>
   </div>
   <div class="input-group mb-2">
-    <span class="input-group-text">输出</span>
-    <input ref="outputValue" type="text" class="form-control" placeholder="输出" disabled/>
+    <span class="input-group-text">{{t('output')}}</span>
+    <input ref="outputValue" type="text" class="form-control" :placeholder="t('output')" disabled/>
     <select ref="outputTypeSelect" @change="inputValue_input" class="input-group-text">
-      <option value="2" selected>二进制</option>
-      <option value="8">八进制</option>
-      <option value="10">十进制</option>
-      <option value="16">十六进制</option>
+      <option value="2" selected>{{t('base-2')}}</option>
+      <option value="8">{{t('base-8')}}</option>
+      <option value="10">{{t('base-10')}}</option>
+      <option value="16">{{t('base-16')}}</option>
     </select>
   </div>
-  <button ref="doConvBtn" @click="doConv" type="button" class="btn btn-primary">转换</button>
+  <button ref="doConvBtn" @click="doConv" type="button" class="btn btn-primary">{{t('conv')}}</button>
 </template>
 
 <style scoped lang="scss">
@@ -136,3 +140,30 @@ onMounted(() => {
   }
 }
 </style>
+
+<i18n>
+{
+  "zh-CN": {
+    "title": "进制转换-",
+    "autoConv": "自动转换",
+    "conv": "转换",
+    "input": "输入",
+    "output": "输出",
+    "base-2": "二进制",
+    "base-8": "八进制",
+    "base-10": "十进制",
+    "base-16": "十六进制"
+  },
+  "en-US": {
+    "title": "Base conversion - ",
+    "autoConv": "Automatic conversion",
+    "conv": "Convert",
+    "input": "Input",
+    "output": "Output",
+    "base-2": "Binary",
+    "base-8": "Octal",
+    "base-10": "Decimal",
+    "base-16": "Hexadecimal"
+  }
+}
+</i18n>

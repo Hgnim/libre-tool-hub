@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
-import {computed, onMounted, ref, type Ref} from "vue";
+import {computed, onMounted, onUnmounted, ref, type Ref} from "vue";
 import {marked} from "marked";
-import {getCurrentLocale, getFallbackLocale} from "@/utils/i18nUtils.ts";
+import {getCurrentLocale, getFallbackLocale, localeEvents} from "@/utils/i18nUtils.ts";
 import {isDev} from "@/ts/global/packMode.ts";
 
 const route = useRoute();
@@ -12,13 +12,13 @@ const meta = computed(() => ({
 
 const appendix:Ref<HTMLElement|null> = ref(null);
 
-onMounted(async () => {
+async function doMd(){
   if(appendix.value) {
     appendix.value.innerHTML=marked.parse(
         (await (async ():Promise<string> => {
           const tryLocale:string[]=[
-              ...[getCurrentLocale()],//当前语言
-              ...getFallbackLocale(true),//如果当前语言对应的文件未找到，则寻找回退语言
+            ...[getCurrentLocale()],//当前语言
+            ...getFallbackLocale(true),//如果当前语言对应的文件未找到，则寻找回退语言
           ]
           let resp:Response;
           for (let i=0;i<tryLocale.length;i++) {
@@ -39,7 +39,14 @@ onMounted(async () => {
         })()).toString()
     ) as string;
   }
+}
+onMounted(async () => {
+  await doMd();
+  localeEvents.on('afterLocaleChange',doMd);
 });
+onUnmounted(()=>{
+  localeEvents.off('afterLocaleChange',doMd);
+})
 </script>
 
 <template>
