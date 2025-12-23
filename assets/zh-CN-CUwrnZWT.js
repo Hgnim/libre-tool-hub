@@ -1,0 +1,1 @@
+const t={global:{title:{t:0,b:{t:2,i:[{t:3}],s:"自由工具中心"}}}};export{t as default};
