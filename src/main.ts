@@ -12,3 +12,11 @@ createApp(App)
     .use(router)
     .use(i18n)
     .mount('#app');
+
+
+import {isDev} from "@/ts/global/packMode.ts";
+if (isDev) {
+    import('@/utils/vite-plugin-svg-icons/get_svg-icons-names').then(({get_ids})=>{
+        console.debug("[main.ts] 'vite-plugin-svg-icons'的所有svg图标id：",get_ids());
+    });
+}

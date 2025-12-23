@@ -28,7 +28,7 @@ async function doLangSel(lang:string){
         <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
           <li class="nav-item dropdown">
             <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown">
-              <svg class="bi mb-1" width="24" height="24" style="margin-right: 0.25rem"><use xlink:href="#bi-globe2"></use></svg><span>{{t('langs.lang')}}</span>
+              <svg class="bi mb-1" width="24" height="24" style="margin-right: 0.25rem"><use xlink:href="#svg-bsi-globe2"></use></svg><span>{{t('langs.lang')}}</span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
               <li>
@@ -37,13 +37,13 @@ async function doLangSel(lang:string){
               <li>
                 <button @click="doLangSel('zh-CN')" :class="{ 'active': (curLoc=='zh-CN') }" class="dropdown-item">
                   {{t('langs.zh-CN')}}
-                  <svg :style="(curLoc!='zh-CN')?{display: 'none'}:{}" class="bi" width="16" height="16"><use xlink:href="#bi-check2"></use></svg>
+                  <svg :style="(curLoc!='zh-CN')?{display: 'none'}:{}" class="bi" width="16" height="16"><use xlink:href="#svg-bsi-check2"></use></svg>
                 </button>
               </li>
               <li>
                 <button @click="doLangSel('en-US')" :class="{ 'active': (curLoc=='en-US') }" class="dropdown-item">
                   {{t('langs.en-US')}}
-                  <svg :style="(curLoc!='en-US')?{display: 'none'}:{}" class="bi" width="16" height="16"><use xlink:href="#bi-check2"></use></svg>
+                  <svg :style="(curLoc!='en-US')?{display: 'none'}:{}" class="bi" width="16" height="16"><use xlink:href="#svg-bsi-check2"></use></svg>
                 </button>
               </li>
             </ul>

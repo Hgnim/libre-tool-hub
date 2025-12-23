@@ -3,8 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "copy-svg-icons": "node script/copySvgIcons.js",
+    "copy-files": "npm run copy-svg-icons",
+
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build": "vue-tsc -b && npm run copy-files && vite build",
+    "build-quick": "vue-tsc -b && vite build",
     "preview": "vite preview"
   },
   "dependencies": {

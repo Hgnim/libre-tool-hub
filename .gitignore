@@ -9,3 +9,5 @@ dist
 # Logs
 *.log
 npm-debug.log*
+
+src/assets/_svg
