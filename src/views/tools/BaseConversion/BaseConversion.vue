@@ -17,7 +17,7 @@ const outputTypeSelect:Ref<HTMLSelectElement|null>=ref(null);
 const doConvBtn:Ref<HTMLButtonElement|null>=ref(null);
 
 const allChars:string[]=[
-    '0','1','2','3','4','5','6','7','8','9','a','b','c','d','e'
+    '0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'
 ]
 
 function autoConvSw_change(){
@@ -79,9 +79,9 @@ function doConv(){
         (`[BaseConversion.vue] ${inputBase}进制转十进制结果：${outToDec.toLocaleString('fullwide'/*不使用科学计数法*/, {useGrouping: false/*不使用千位分隔符','*/})}`);
 
     let dec:bigint=outToDec;
-    let opVals:string[] = [];
+    let opVals:number[] = [];
     while (true){
-      opVals.push((dec%BigInt(outputBase)).toString());
+      opVals.push(Number(dec%BigInt(outputBase)));
       dec /= BigInt(outputBase);//bigint正数情况下向下取整，负数计算则需要额外逻辑
       if (dec == 0n){
         break;
@@ -89,7 +89,7 @@ function doConv(){
     }
     let outputVal:string='';
     for (let i=opVals.length-1;i>=0;i--){
-      outputVal+=opVals[i];
+      outputVal+=allChars[opVals[i]!];
     }
     console.debug(`[BaseConversion.vue] ${inputBase}进制转${outputBase}进制输出：${outputVal}`);
 
