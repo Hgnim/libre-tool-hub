@@ -3,9 +3,17 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import {createSvgIconsPlugin} from "vite-plugin-svg-icons";
+import {mockDevServerPlugin} from "vite-plugin-mock-dev-server";
+
+//当前是否为生产模式
+const isProd = (mode:string):boolean=>mode=='production';
+//当前是否为开发模式
+const isDev = (mode:string):boolean=>mode=='development';
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) =>{
+    console.log(`当前模式：${mode}\nisDev: ${isDev(mode)}\nisProd: ${isProd(mode)}`);
+return {
     plugins: [
         vue(),
         VueI18nPlugin({
@@ -27,10 +35,18 @@ export default defineConfig({
             customDomId: '__svg__icons__dom__',
             //使用示例：<svg class="bi" width="16" height="16"><use xlink:href="#bi-check2"></use></svg>
         }),
+        mockDevServerPlugin({
+            prefix: ["^/api"],
+            dir: "src",
+            include: ['**/mock/**/*.mock.{js,ts,cjs,mjs,json,json5}'],
+            exclude: ['**/node_modules/**'],
+            log: isDev(mode)?'debug':'silent',
+        }),
     ],
     resolve: {
         alias: {
             '@': path.resolve(__dirname, 'src'),
         }
     },
+};
 })

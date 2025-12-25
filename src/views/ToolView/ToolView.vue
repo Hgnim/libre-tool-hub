@@ -55,7 +55,9 @@ onUnmounted(()=>{
       <div id="tool-view" class="col-12 mt-4">
         <router-view/>
       </div>
-      <div ref="appendix" id="appendix" class="col-12 mt-4">
+      <div id="appendix-border" class="col-12 mt-4">
+        <div ref="appendix" id="appendix" class="markdown-body">
+        </div>
       </div>
     </div>
   </div>
@@ -75,7 +77,16 @@ onUnmounted(()=>{
   flex-direction: column;
   @extend %shared-border;
 }
-#appendix{
+#appendix-border{
   @extend %shared-border;
+
+  .markdown-body {
+    background-color: transparent;
+  }
+}
+#appendix{
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 </style>
