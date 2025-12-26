@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import tvFooter from "@/components/footer/toolview/toolviewFooter.vue";
+
 import {useRoute} from "vue-router";
 import {computed, onMounted, onUnmounted, ref, type Ref} from "vue";
 import {marked} from "marked";
@@ -40,9 +42,20 @@ async function doMd(){
     ) as string;
   }
 }
+const container:Ref<HTMLElement|null>=ref(null);
+const footerMt:Ref<number>=ref(0)
 onMounted(async () => {
   await doMd();
   localeEvents.on('afterLocaleChange',doMd);
+
+  footerMt.value=(()=>{
+    const min=100;//最小间隔100px
+    let out=window.innerHeight-container.value!.offsetHeight;
+    if (out<0)
+      return min;
+    else
+      return out;
+  })();
 });
 onUnmounted(()=>{
   localeEvents.off('afterLocaleChange',doMd);
@@ -50,7 +63,7 @@ onUnmounted(()=>{
 </script>
 
 <template>
-  <div class="container">
+  <div ref="container" class="container">
     <div class="row">
       <div id="tool-view" class="col-12 mt-4">
         <router-view/>
@@ -61,6 +74,7 @@ onUnmounted(()=>{
       </div>
     </div>
   </div>
+  <tvFooter :footerMarginTop="footerMt"/>
 </template>
 
 <style scoped lang="scss">
