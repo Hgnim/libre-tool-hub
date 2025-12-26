@@ -18,6 +18,11 @@ export default [
                     appendix_mdPath:'/assets/md/views/tools/BaseConversion/appendix.{lang}.md',
                 },
             },
-        ]
-    }
+        ],
+    },
+    {
+        path: '/:beforePath+/api/:afterPath(.*)*',
+        name: 'ApiViewer',
+        component: () => import('@/views/Api/ApiView.vue'),
+    },
 ] as RouteRecordRaw[];
