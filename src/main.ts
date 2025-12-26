@@ -9,14 +9,6 @@ import 'virtual:svg-icons-register';//vite-plugin-svg-icons的虚拟模块
 import '@/assets/css/global/unSelect.css';
 import 'github-markdown-css/github-markdown.css';
 
-{
-    const { setupWorker } = await import('msw/browser');
-    const { handlers } = await import('./mocks/handlers');
-
-    const worker = setupWorker(...handlers);
-    await worker.start({ onUnhandledRequest: 'bypass' });
-}
-
 createApp(App)
     .use(router)
     .use(i18n)

@@ -20,9 +20,4 @@ export default [
             },
         ],
     },
-    {
-        path: '/:beforePath+/api/:afterPath(.*)*',
-        name: 'ApiViewer',
-        component: () => import('@/views/Api/ApiView.vue'),
-    },
 ] as RouteRecordRaw[];
