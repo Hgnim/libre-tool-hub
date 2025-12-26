@@ -18,6 +18,6 @@ export default [
                     appendix_mdPath:'/assets/md/views/tools/BaseConversion/appendix.{lang}.md',
                 },
             },
-        ]
-    }
+        ],
+    },
 ] as RouteRecordRaw[];

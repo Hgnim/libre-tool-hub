@@ -12,20 +12,4 @@
 ```text
 /tool/baseconversion?input=1234&inbase=10&outbase=16
 ```
-访问后将会将目标参数自动输入页面中
-#### api调用示例
-```text
-/api/tool/baseconversion?input=1234&inbase=10&outbase=16
-```
-##### 返回内容
-```json
-{
-  "code": 0,
-  "output": "4d2"
-}
-```
-- `code`：结果代码
-  - `-1`：参数缺失
-  - `0`：正常
-  - `1`：输入不合法
-- `output`：输出内容，可能为`null`或`undefined`
+访问后会将目标参数自动输入页面中
