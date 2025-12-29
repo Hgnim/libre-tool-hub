@@ -8,6 +8,8 @@ useTitle(`${t('title')}${gt('global.title')}`);
 
 <template>
 <router-link :to="{name: 'tool-baseConversion'}">{{t('baseConv')}}</router-link>
+  <br>
+  <router-link :to="{name: 'tool-stringAndBaseConversion'}">{{t('stringAndBaseConv')}}</router-link>
 </template>
 
 <style scoped lang="scss">
@@ -18,11 +20,13 @@ useTitle(`${t('title')}${gt('global.title')}`);
 {
   "zh-CN": {
     "title": "工具列表-",
-    "baseConv": "进制转换"
+    "baseConv": "进制转换",
+    "stringAndBaseConv": "文本转进制"
   },
   "en-US": {
     "title": "Tool list - ",
-    "baseConv": "Base conversion"
+    "baseConv": "Base conversion",
+    "stringAndBaseConv": "Text to n-base"
   }
 }
 </i18n>
