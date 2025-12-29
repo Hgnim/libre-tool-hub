@@ -18,6 +18,14 @@ export default [
                     appendix_mdPath:'/assets/md/views/tools/BaseConversion/appendix.{lang}.md',
                 },
             },
+            {
+                path: 'textandbaseconvert',
+                name: 'tool-stringAndBaseConversion',
+                component:() => import('@/views/tools/StringAndBaseConversion/StringAndBaseConversion.vue'),
+                meta: {
+                    appendix_mdPath: '/assets/md/views/tools/StringAndBaseConversion/appendix.{lang}.md',
+                }
+            },
         ],
     },
 ] as RouteRecordRaw[];
