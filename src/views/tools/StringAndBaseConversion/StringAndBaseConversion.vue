@@ -149,12 +149,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped lang="scss">
-.input-group{
-  &.center{
-    justify-content: center;
-  }
-}
+<style scoped lang="scss" src="@/views/tools/scss/shared.scss">
 </style>
 
 <i18n>

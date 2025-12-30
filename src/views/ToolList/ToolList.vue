@@ -10,6 +10,8 @@ useTitle(`${t('title')}${gt('global.title')}`);
 <router-link :to="{name: 'tool-baseConversion'}">{{t('baseConv')}}</router-link>
   <br>
   <router-link :to="{name: 'tool-stringAndBaseConversion'}">{{t('stringAndBaseConv')}}</router-link>
+  <br>
+  <router-link :to="{name: 'tool-qrcode'}">{{t('qrcode')}}</router-link>
 </template>
 
 <style scoped lang="scss">
@@ -21,12 +23,14 @@ useTitle(`${t('title')}${gt('global.title')}`);
   "zh-CN": {
     "title": "工具列表-",
     "baseConv": "进制转换",
-    "stringAndBaseConv": "文本转进制"
+    "stringAndBaseConv": "文本转进制",
+    "qrcode": "二维码工具"
   },
   "en-US": {
     "title": "Tool list - ",
     "baseConv": "Base conversion",
-    "stringAndBaseConv": "Text to n-base"
+    "stringAndBaseConv": "Text to n-base",
+    "qrcode": "Qrcode tool"
   }
 }
 </i18n>

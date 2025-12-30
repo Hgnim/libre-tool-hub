@@ -26,6 +26,14 @@ export default [
                     appendix_mdPath: '/assets/md/views/tools/StringAndBaseConversion/appendix.{lang}.md',
                 }
             },
+            {
+                path: 'qrcode',
+                name: 'tool-qrcode',
+                component: () => import('@/views/tools/QRCode/QRCode.vue'),
+                meta: {
+                    appendix_mdPath:'/assets/md/views/tools/QRCode/appendix.{lang}.md',
+                }
+            },
         ],
     },
 ] as RouteRecordRaw[];
