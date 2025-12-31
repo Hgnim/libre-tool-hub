@@ -9,4 +9,7 @@ declare module 'qrcode' {
     export interface QRCodeToDataURLOptionsJpegWebp {
         quality?: number
     }
+    export interface QRCodeRenderersOptions {
+        quality?: number
+    }
 }
