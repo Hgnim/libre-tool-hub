@@ -12,6 +12,8 @@ useTitle(`${t('title')}${gt('global.title')}`);
   <router-link :to="{name: 'tool-stringAndBaseConversion'}">{{t('stringAndBaseConv')}}</router-link>
   <br>
   <router-link :to="{name: 'tool-qrcode'}">{{t('qrcode')}}</router-link>
+  <br>
+  <router-link :to="{name: 'markdown-pane'}">markdown pane工具</router-link>
 </template>
 
 <style scoped lang="scss">

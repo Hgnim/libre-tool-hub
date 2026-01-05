@@ -34,6 +34,14 @@ export default [
                     appendix_mdPath:'/assets/md/views/tools/QRCode/appendix.{lang}.md',
                 }
             },
+            {
+                path: 'markdownpane',
+                name: 'markdown-pane',
+                component: () => import('@/views/tools/markdownPane/markdownPane.vue'),
+                meta: {
+                    appendix_mdPath:'/assets/md/views/tools/markdownPane/appendix.{lang}.md',
+                }
+            },
         ],
     },
 ] as RouteRecordRaw[];
