@@ -23,7 +23,7 @@ const darkInput:Ref<HTMLInputElement|null> = ref(null);
 const darkInputIsInvalid:Ref<boolean>=ref(false);
 const lightInput:Ref<HTMLInputElement|null> = ref(null);
 const lightInputIsInvalid:Ref<boolean>=ref(false);
-const createBtn:Ref<HTMLButtonElement|null> = ref(null);
+//const createBtn:Ref<HTMLButtonElement|null> = ref(null);
 
 const qrcodeOutput_img:Ref<HTMLImageElement|null>=ref(null);
 const qrcodeOutput_div:Ref<HTMLDivElement|null> = ref(null);
@@ -217,7 +217,7 @@ function widthInput_input(){
         </div>
       </div>
       <div class="mb-3 col-12 d-flex justify-content-center">
-        <button ref="createBtn" @click="createBtn_click" type="button" class="btn btn-primary">生成</button>
+        <button @click="createBtn_click" type="button" class="btn btn-primary">生成</button><!--ref="createBtn"-->
       </div>
       <div class="col-12 d-flex justify-content-center">
         <img ref="qrcodeOutput_img" src="" alt="qrcode error"/>
