@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {onMounted, onUnmounted, type Ref, ref} from "vue";
-import {parse} from 'markpane';
+import markpane from "markpane";
 
 const inputBox:Ref<HTMLTextAreaElement|null> = ref(null);
 const outputBox:Ref<HTMLDivElement|null> = ref(null);
 
 function inputBox_input(){
   if (inputBox.value && outputBox.value){
-    outputBox.value.innerHTML=parse(inputBox.value.value);
+    outputBox.value.innerHTML=markpane.parse(inputBox.value.value);
   }
 }
 function inputBox_resize(){
@@ -46,7 +46,7 @@ onUnmounted(() => {
         </div>
       </div>
       <div class="col-6">
-        <div ref="outputBox" id="outputBox" class="form-control">
+        <div ref="outputBox" class="form-control">
         </div>
       </div>
     </div>
@@ -60,9 +60,5 @@ onUnmounted(() => {
 
 #inputBox{
   height: 5rem;
-}
-#outputBox{
-  position: relative;
-  overflow: scroll;
 }
 </style>
