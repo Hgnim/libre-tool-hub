@@ -15,7 +15,7 @@ const props = defineProps({
 <footer class="modal modal-footer" :style="{ marginTop: props.footerMarginTop + 'px' }">
     <div class="row">
       <div class="col-12 d-flex justify-content-center">
-        <a href="https://github.com/Hgnim/libre-tool-hub">
+        <a href="https://github.com/Hgnim/libre-tool-hub" style="margin-right: 0.5rem">
           <svg class="bi" width="24" height="24" ><use xlink:href="#svg-bsi-github"></use></svg>
         </a>
         <strong>{{t('main')}}</strong>

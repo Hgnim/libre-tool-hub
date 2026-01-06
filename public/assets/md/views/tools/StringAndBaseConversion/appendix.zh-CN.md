@@ -6,3 +6,21 @@
 
 ### 原理概括
 将输入文本按照`UTF-8`编码规则转换为字节序列，再将每个索引转换为指定进制后拼接并输出。
+
+### 高级功能
+#### 参数说明
+- `text`：文本内容（可选）
+- `baseText`：进制文本内容（可选）
+- `base`：目标进制
+
+`text`参数和`baseText`参数中只需填写其中一个
+
+#### 页面参数示例
+```text
+/#/tool/textandbaseconvert?text=test&base=2
+```
+访问后会将`test`输入文本框并转换为二进制文本
+```text
+/#/tool/textandbaseconvert?baseText=30&base=16
+```
+访问后会将`30`输入进制文本框并按照十六进制转换为文本

@@ -132,12 +132,7 @@ onMounted(() => {
   <button ref="doConvBtn" @click="doConvAction" type="button" class="btn btn-primary">{{t('conv')}}</button>
 </template>
 
-<style scoped lang="scss">
-.input-group{
-  &.center{
-    justify-content: center;
-  }
-}
+<style scoped lang="scss" src="@/views/tools/scss/shared.scss">
 </style>
 
 <i18n>

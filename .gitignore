@@ -11,3 +11,4 @@ dist
 npm-debug.log*
 
 src/assets/_svg
+src/_test

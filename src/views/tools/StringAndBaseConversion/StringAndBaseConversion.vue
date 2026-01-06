@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import {autoUseI18n} from "@/utils/i18nUtils.ts";
 import {useTitle} from "@vueuse/core";
-import {onMounted, ref, type Ref} from "vue";
+import {computed, onMounted, ref, type Ref} from "vue";
 import {doSbConv} from "@/views/tools/StringAndBaseConversion/ts/strBaseConversion.ts";
+import {useRoute} from "vue-router";
 
 const {lt:t,gt}=autoUseI18n();
 useTitle(`${t('title')}${gt('global.title')}`);
+
+const route = useRoute();
+const query = computed(()=>({
+  str: route.query.text,
+  baseStr: route.query.baseText,
+  base: route.query.base,
+}));
 
 const autoConvSw:Ref<HTMLInputElement|null>=ref(null);
 const doConvBtn_stb:Ref<HTMLButtonElement|null>=ref(null);
@@ -93,6 +101,24 @@ function baseValue_input(){
 }
 onMounted(() => {
   autoConvSw_change();
+
+  {
+    if (
+        (
+              typeof query.value.str == 'string'
+            ||typeof query.value.baseStr == 'string'
+        )
+        &&typeof query.value.base == 'string'){
+      baseType.value!.value = query.value.base;
+      if (typeof query.value.str == 'string'){
+        stringValue.value!.value=query.value.str;
+        doConvAction(true);
+      }else if (typeof query.value.baseStr == 'string'){
+        baseValue.value!.value=query.value.baseStr;
+        doConvAction(false);
+      }
+    }
+  }
 });
 </script>
 
@@ -123,12 +149,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped lang="scss">
-.input-group{
-  &.center{
-    justify-content: center;
-  }
-}
+<style scoped lang="scss" src="@/views/tools/scss/shared.scss">
 </style>
 
 <i18n>
