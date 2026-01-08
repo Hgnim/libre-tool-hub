@@ -1,2 +1,3 @@
-该页面正在开发中。\
-This page is under development.
+# Markdown Pane 预览工具
+
+[Mardown Pane 语法](https://github.com/Hgnim/markdown-pane)
