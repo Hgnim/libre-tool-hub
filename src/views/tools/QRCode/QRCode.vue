@@ -6,9 +6,15 @@ import QRCode, {
   type QRCodeRenderersOptions,
   type QRCodeStringType,
 } from 'qrcode'
-import {onMounted, ref, type Ref} from "vue";
+import {onMounted, onUnmounted, ref, type Ref} from "vue";
 import {isDev} from "@/ts/global/packMode.ts";
 
+const tempDownloadUrl:string[]=[];
+onUnmounted(()=>{
+  tempDownloadUrl.forEach((url)=>{
+    URL.revokeObjectURL(url);//释放临时url
+  });
+});
 
 const contentInput:Ref<HTMLTextAreaElement|null> = ref(null);
 const contentInputIsInvalid:Ref<boolean>=ref(false);
@@ -25,16 +31,22 @@ const lightInput:Ref<HTMLInputElement|null> = ref(null);
 const lightInputIsInvalid:Ref<boolean>=ref(false);
 //const createBtn:Ref<HTMLButtonElement|null> = ref(null);
 
+const qrcodeOutput_imgDiv:Ref<HTMLDivElement|null> = ref(null);
 const qrcodeOutput_img:Ref<HTMLImageElement|null>=ref(null);
-const qrcodeOutput_div:Ref<HTMLDivElement|null> = ref(null);
+const qrcodeOutput_imgDiv_a:Ref<HTMLAnchorElement|null> = ref(null);
+const qrcodeOutput_svgDiv:Ref<HTMLDivElement|null> = ref(null);
 const qrcodeOutput_div_svg:Ref<HTMLDivElement|null> = ref(null);
+const qrcodeOutput_svgDiv_a:Ref<HTMLAnchorElement|null> = ref(null);
 const qrcodeOutput_div_text:Ref<HTMLTextAreaElement|null> = ref(null);
 
 function createBtn_click(){
   if (
-        qrcodeOutput_img.value
-      &&qrcodeOutput_div.value
+      qrcodeOutput_imgDiv.value
+      &&qrcodeOutput_img.value
+      &&qrcodeOutput_imgDiv_a.value
+      &&qrcodeOutput_svgDiv.value
       &&qrcodeOutput_div_svg.value
+      &&qrcodeOutput_svgDiv_a.value
       &&qrcodeOutput_div_text.value
       &&contentInput.value
       &&typeSelect.value
@@ -47,8 +59,8 @@ function createBtn_click(){
       &&darkInput.value
       &&lightInput.value
   ) {
-    qrcodeOutput_img.value.style.display="none";
-    qrcodeOutput_div.value.style.display="none";
+    qrcodeOutput_imgDiv.value.style.display="none";
+    qrcodeOutput_svgDiv.value.style.display="none";
 
     const opt:QRCodeRenderersOptions={
       quality: Number(qualityInput.value.value),
@@ -92,9 +104,21 @@ function createBtn_click(){
               onErr(err);
             } else {
               qrcodeOutput_img.value!.src = url;
-              qrcodeOutput_img.value!.style.display = '';
+              qrcodeOutput_imgDiv_a.value!.download=`qrcode.${typeSelect.value!.value.slice(6)}`;
+              //qrcodeOutput_imgDiv_a.value!.href=url;
+              (async ()=>{
+                const downloadUrl:string=URL.createObjectURL(
+                    await (
+                        await fetch(url)
+                    ).blob()
+                );
+                qrcodeOutput_imgDiv_a.value!.href=downloadUrl;
+                tempDownloadUrl.push(downloadUrl);
+              })().then(()=>{
+                qrcodeOutput_imgDiv.value!.style.display = '';
 
-              done();
+                done();
+              });
             }
           },
       );
@@ -114,9 +138,14 @@ function createBtn_click(){
               onErr(err);
             }else{
               qrcodeOutput_div_svg.value!.innerHTML = string;
+              qrcodeOutput_svgDiv_a.value!.download = `qrcode.${(typeSelect.value!.value=="svg")?"svg":"txt"}`;
+              {
+                const downloadUrl:string=URL.createObjectURL(new Blob([string], { type: 'text/plain;charset=utf-8' }));
+                qrcodeOutput_svgDiv_a.value!.href=downloadUrl;
+                tempDownloadUrl.push(downloadUrl);
+              }
               qrcodeOutput_div_text.value!.value =string;
-
-              qrcodeOutput_div.value!.style.display = '';
+              qrcodeOutput_svgDiv.value!.style.display = '';
               done();
             }
           },
@@ -126,8 +155,8 @@ function createBtn_click(){
 }
 
 onMounted(()=>{
-  qrcodeOutput_img.value!.style.display='none';
-  qrcodeOutput_div.value!.style.display="none";
+  qrcodeOutput_imgDiv.value!.style.display='none';
+  qrcodeOutput_svgDiv.value!.style.display="none";
 
   typeSelect_change();
   widthInput_input();
@@ -220,13 +249,22 @@ function widthInput_input(){
         <button @click="createBtn_click" type="button" class="btn btn-primary">生成</button><!--ref="createBtn"-->
       </div>
       <div class="col-12 d-flex justify-content-center">
-        <img ref="qrcodeOutput_img" src="" alt="qrcode error"/>
+        <div ref="qrcodeOutput_imgDiv" id="qrcodeOutput_imgDiv">
+          <img ref="qrcodeOutput_img" src="" alt="qrcode error"/>
+          <br>
+          <a ref="qrcodeOutput_imgDiv_a">
+            <button type="button" class="btn btn-primary">下载</button>
+          </a>
+        </div>
       </div>
       <div class="col-12 d-flex justify-content-center">
-        <div ref="qrcodeOutput_div">
-          <div ref="qrcodeOutput_div_svg">
+        <div ref="qrcodeOutput_svgDiv" id="qrcodeOutput_svg-div">
+          <div ref="qrcodeOutput_div_svg" id="qrcodeOutput_div_svg">
           </div>
-          <textarea ref="qrcodeOutput_div_text" class="form-control" disabled></textarea>
+          <a ref="qrcodeOutput_svgDiv_a">
+            <button type="button" class="btn btn-primary">下载</button>
+          </a>
+          <textarea ref="qrcodeOutput_div_text" id="qrcodeOutput_div_text" class="form-control" disabled></textarea>
         </div>
       </div>
     </div>
@@ -236,6 +274,20 @@ function widthInput_input(){
 <style scoped lang="scss">
 .container{
   padding: 0;
+}
+
+#qrcodeOutput_imgDiv{
+  text-align: center;
+}
+#qrcodeOutput_svg-div{
+  width: 100%;
+  text-align: center;
+  #qrcodeOutput_div_svg{
+    text-align: center;
+  }
+  #qrcodeOutput_div_text{
+    height: 10rem;
+  }
 }
 </style>
 <style scoped lang="scss" src="@/views/tools/scss/shared.scss">
