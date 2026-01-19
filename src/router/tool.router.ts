@@ -32,7 +32,19 @@ export default [
                 component: () => import('@/views/tools/QRCode/QRCode.vue'),
                 meta: {
                     appendix_mdPath:'/assets/md/views/tools/QRCode/appendix.{lang}.md',
-                }
+                },
+                children:[
+                    {
+                        path:'create',
+                        name:'tool_qrcode_create',
+                        component:()=>import('@/views/tools/QRCode/component/createQRCode.vue'),
+                    },
+                    {
+                        path:'parse',
+                        name:'tool_qrcode_parse',
+                        component:()=>import('@/views/tools/QRCode/component/parseQRCode.vue'),
+                    },
+                ]
             },
             {
                 path: 'markdownpane',
