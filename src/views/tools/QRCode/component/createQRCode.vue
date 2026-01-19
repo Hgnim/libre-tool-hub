@@ -7,7 +7,16 @@ import QRCode, {
   type QRCodeStringType,
 } from 'qrcode'
 import {onMounted, onUnmounted, ref, type Ref} from "vue";
-import {isDev} from "@/ts/global/packMode.ts";
+import { isDev } from "@/ts/global/packMode.ts";
+import { autoUseI18n } from "@/utils/i18nUtils.ts";
+import { autoLoadLocale } from "@/ts/global/vue/autoLoadLocale.ts";
+import { useTitle } from "@vueuse/core";
+
+const {gt:t}=autoUseI18n();
+const lp:string="view_tool_QRCode_comp_createQRCode";
+autoLoadLocale(lp,()=>{
+  useTitle(`${t(`${lp}.title`)}${t('global.title')}`);
+});
 
 const tempDownloadUrl:string[]=[];
 onUnmounted(()=>{
@@ -185,13 +194,13 @@ function widthInput_input(){
     <div class="row">
       <div class="mb-1 col-12">
         <div class="input-group">
-          <span class="input-group-text">内容</span>
+          <span class="input-group-text">{{ t(`${lp}.contentInput_label`) }}</span>
           <textarea ref="contentInput" class="form-control" :class="{ 'is-invalid': contentInputIsInvalid }"></textarea>
         </div>
       </div>
       <div class="mb-1 col-12 col-md-6">
         <div class="input-group">
-          <span class="input-group-text">类型</span>
+          <span class="input-group-text">{{ t(`${lp}.typeSelect_label`) }}</span>
           <select ref="typeSelect" class="form-select" @change="typeSelect_change">
             <option value="image/png" selected>png</option>
             <option value="image/jpeg">jpeg</option>
@@ -200,22 +209,22 @@ function widthInput_input(){
             <!--<option value="terminal">terminal</option>
             <option value="utf8">utf8</option>-->
           </select>
-          <span class="input-group-text">质量</span>
+          <span class="input-group-text">{{ t(`${lp}.qualityInput_label`) }}</span>
           <input ref="qualityInput" type="number" max="1" min="0" step="0.1" class="form-control" placeholder="0-1" value="0.92"/>
         </div>
       </div>
       <div class="mb-1 col-12 col-md-6">
         <div class="input-group">
-          <span class="input-group-text">抗损坏面积</span>
+          <span class="input-group-text">{{ t(`${lp}.errorCorrectionSelect_label`) }}</span>
           <select ref="errorCorrectionSelect" class="form-select">
             <option value="H">30%</option>
             <option value="Q">25%</option>
             <option value="M" selected>15%</option>
             <option value="L">7%</option>
           </select>
-          <span class="input-group-text">掩码</span>
+          <span class="input-group-text">{{ t(`${lp}.maskPatternSelect_label`) }}</span>
           <select ref="maskPatternSelect" class="form-select">
-            <option value="undefined" selected>自动</option>
+            <option value="undefined" selected>{{t(`${lp}.auto`)}}</option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -229,31 +238,31 @@ function widthInput_input(){
       </div>
       <div class="mb-1 col-12 col-lg-6">
         <div class="input-group">
-          <span class="input-group-text">块像素大小</span>
+          <span class="input-group-text">{{ t(`${lp}.scaleInput_label`) }}</span>
           <input ref="scaleInput" type="number" min="0" step="1" class="form-control" value="4"/>
-          <span class="input-group-text">宽度</span>
+          <span class="input-group-text">{{ t(`${lp}.widthInput_label`) }}</span>
           <input ref="widthInput" @input="widthInput_input" type="number" min="0" step="16" class="form-control"/>
         </div>
       </div>
       <div class="mb-1 col-12 col-lg-6">
         <div class="input-group">
-          <span class="input-group-text">边距</span>
+          <span class="input-group-text">{{ t(`${lp}.marginInput_label`) }}</span>
           <input ref="marginInput" type="text" class="form-control" value="1"/>
-          <span class="input-group-text">前景色</span>
+          <span class="input-group-text">{{ t(`${lp}.darkInput_label`) }}</span>
           <input ref="darkInput" type="text" class="form-control" :class="{ 'is-invalid': darkInputIsInvalid }" value="#000"/>
-          <span class="input-group-text">背景色</span>
+          <span class="input-group-text">{{ t(`${lp}.lightInput_label`) }}</span>
           <input ref="lightInput" type="text" class="form-control" :class="{ 'is-invalid': lightInputIsInvalid }" value="#fff"/>
         </div>
       </div>
       <div class="mb-3 col-12 d-flex justify-content-center">
-        <button @click="createBtn_click" type="button" class="btn btn-primary">生成</button><!--ref="createBtn"-->
+        <button @click="createBtn_click" type="button" class="btn btn-primary">{{t(`${lp}.createBtn`)}}</button><!--ref="createBtn"-->
       </div>
       <div class="col-12 d-flex justify-content-center">
         <div ref="qrcodeOutput_imgDiv" id="qrcodeOutput_imgDiv">
           <img ref="qrcodeOutput_img" src="" alt="qrcode error"/>
           <br>
           <a ref="qrcodeOutput_imgDiv_a">
-            <button type="button" class="btn btn-primary">下载</button>
+            <button type="button" class="btn btn-primary">{{ t(`${lp}.downloadBtn`) }}</button>
           </a>
         </div>
       </div>
@@ -262,7 +271,7 @@ function widthInput_input(){
           <div ref="qrcodeOutput_div_svg" id="qrcodeOutput_div_svg">
           </div>
           <a ref="qrcodeOutput_svgDiv_a">
-            <button type="button" class="btn btn-primary">下载</button>
+            <button type="button" class="btn btn-primary">{{ t(`${lp}.downloadBtn`) }}</button>
           </a>
           <textarea ref="qrcodeOutput_div_text" id="qrcodeOutput_div_text" class="form-control" disabled></textarea>
         </div>

@@ -1,0 +1,18 @@
+{
+    "view_tool_QRCode_comp_createQRCode": {
+        "title": "Create QRCode -",
+        "contentInput_label": "Content",
+        "typeSelect_label": "Type",
+        "qualityInput_label": "Quality",
+        "errorCorrectionSelect_label": "Error Correction",
+        "maskPatternSelect_label": "Mask Pattern",
+        "auto": "Auto",
+        "scaleInput_label": "Block Size",
+        "widthInput_label": "Width",
+        "marginInput_label": "Margin",
+        "darkInput_label": "Foreground Color",
+        "lightInput_label": "Background Color",
+        "createBtn": "Create",
+        "downloadBtn": "Download"
+    }
+}

@@ -44,6 +44,11 @@ export default [
                         name:'tool_qrcode_parse',
                         component:()=>import('@/views/tools/QRCode/component/parseQRCode.vue'),
                     },
+                    {
+                        path: 'scanparse',
+                        name: 'tool_qrcode_scanparse',
+                        component: () => import('@/views/tools/QRCode/component/scanParseQRCode.vue'),
+                    },
                 ]
             },
             {
