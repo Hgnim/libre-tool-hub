@@ -7,13 +7,13 @@ useTitle(`${t('title')}${gt('global.title')}`);
 </script>
 
 <template>
-<router-link :to="{name: 'tool-baseConversion'}">{{t('baseConv')}}</router-link>
+<router-link :to="{name: 'tool_baseConversion'}">{{t('baseConv')}}</router-link>
   <br>
-  <router-link :to="{name: 'tool-stringAndBaseConversion'}">{{t('stringAndBaseConv')}}</router-link>
+  <router-link :to="{name: 'tool_stringAndBaseConversion'}">{{t('stringAndBaseConv')}}</router-link>
   <br>
-  <router-link :to="{name: 'tool-qrcode'}">{{t('qrcode')}}</router-link>
+  <router-link :to="{name: 'tool_qrcode'}">{{t('qrcode')}}</router-link>
   <br>
-  <router-link :to="{name: 'markdown-pane'}">markdown pane工具</router-link>
+  <router-link :to="{name: 'tool_markdown-pane'}">markdown pane工具</router-link>
 </template>
 
 <style scoped lang="scss">
