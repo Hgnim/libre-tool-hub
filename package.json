@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "copy-svg-icons": "node script/copySvgIcons.js",
-    "copy-files": "npm run copy-svg-icons",
+    "copy-files": "node script/copySvgIcons.js",
+    "before-build": "npm run copy-files",
     "dev": "vite",
-    "build": "vue-tsc -b && npm run copy-files && vite build",
+    "build": "vue-tsc -b && npm run before-build && vite build",
     "build-quick": "vue-tsc -b && vite build",
     "preview": "vite preview"
   },
@@ -36,6 +36,7 @@
     "typescript": "~5.9.3",
     "vite": "^7.2.4",
     "vite-plugin-svg-icons": "^2.0.1",
+    "vite-prerender-plugin": "^0.5.12",
     "vue-tsc": "^3.1.4"
   }
 }
