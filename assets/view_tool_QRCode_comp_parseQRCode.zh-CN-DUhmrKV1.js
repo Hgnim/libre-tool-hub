@@ -1,0 +1,1 @@
+const t={view_tool_QRCode_comp_parseQRCode:{title:{t:0,b:{t:2,i:[{t:3}],s:"解析二维码-"}},qrcodeFileInput_label:{t:0,b:{t:2,i:[{t:3}],s:"二维码图片文件"}},parseBtn:{t:0,b:{t:2,i:[{t:3}],s:"解析"}},parseOutput_label:{t:0,b:{t:2,i:[{t:3}],s:"解析输出"}},outputAlert:{parseFailed:{t:0,b:{t:2,i:[{t:3}],s:"二维码解析失败"}},error:{t:0,b:{t:2,i:[{t:3}],s:"错误"}}}}};export{t as default};
