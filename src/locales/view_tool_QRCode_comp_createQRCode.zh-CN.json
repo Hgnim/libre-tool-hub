@@ -1,0 +1,18 @@
+{
+    "view_tool_QRCode_comp_createQRCode":{
+        "title":"创建二维码-",
+        "contentInput_label":"内容",
+        "typeSelect_label":"类型",
+        "qualityInput_label":"质量",
+        "errorCorrectionSelect_label":"抗损坏面积",
+        "maskPatternSelect_label":"掩码",
+        "auto":"自动",
+        "scaleInput_label":"块像素大小",
+        "widthInput_label":"宽度",
+        "marginInput_label":"边距",
+        "darkInput_label":"前景色",
+        "lightInput_label":"背景色",
+        "createBtn":"生成",
+        "downloadBtn":"下载"
+    }
+}

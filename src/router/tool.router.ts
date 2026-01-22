@@ -12,7 +12,7 @@ export default [
             },
             {
                 path: 'baseconversion',
-                name: 'tool-baseConversion',
+                name: 'tool_baseConversion',
                 component: () => import('@/views/tools/BaseConversion/BaseConversion.vue'),
                 meta: {
                     appendix_mdPath:'/assets/md/views/tools/BaseConversion/appendix.{lang}.md',
@@ -20,7 +20,7 @@ export default [
             },
             {
                 path: 'textandbaseconvert',
-                name: 'tool-stringAndBaseConversion',
+                name: 'tool_stringAndBaseConversion',
                 component:() => import('@/views/tools/StringAndBaseConversion/StringAndBaseConversion.vue'),
                 meta: {
                     appendix_mdPath: '/assets/md/views/tools/StringAndBaseConversion/appendix.{lang}.md',
@@ -28,15 +28,32 @@ export default [
             },
             {
                 path: 'qrcode',
-                name: 'tool-qrcode',
+                name: 'tool_qrcode',
                 component: () => import('@/views/tools/QRCode/QRCode.vue'),
                 meta: {
                     appendix_mdPath:'/assets/md/views/tools/QRCode/appendix.{lang}.md',
-                }
+                },
+                children:[
+                    {
+                        path:'create',
+                        name:'tool_qrcode_create',
+                        component:()=>import('@/views/tools/QRCode/component/createQRCode.vue'),
+                    },
+                    {
+                        path:'parse',
+                        name:'tool_qrcode_parse',
+                        component:()=>import('@/views/tools/QRCode/component/parseQRCode.vue'),
+                    },
+                    {
+                        path: 'scanparse',
+                        name: 'tool_qrcode_scanparse',
+                        component: () => import('@/views/tools/QRCode/component/scanParseQRCode.vue'),
+                    },
+                ]
             },
             {
                 path: 'markdownpane',
-                name: 'markdown-pane',
+                name: 'tool_markdown-pane',
                 component: () => import('@/views/tools/markdownPane/markdownPane.vue'),
                 meta: {
                     appendix_mdPath:'/assets/md/views/tools/markdownPane/appendix.{lang}.md',

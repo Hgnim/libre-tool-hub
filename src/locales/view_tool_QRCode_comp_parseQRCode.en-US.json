@@ -1,0 +1,12 @@
+{
+  "view_tool_QRCode_comp_parseQRCode": {
+    "title": "Parse QRCode-",
+    "qrcodeFileInput_label": "QR code image file",
+    "parseBtn": "Parse",
+    "parseOutput_label": "Parsed output",
+    "outputAlert": {
+      "parseFailed": "QR code parsing failed",
+      "error": "error"
+    }
+  }
+}
