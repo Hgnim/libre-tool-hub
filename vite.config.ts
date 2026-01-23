@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import {createSvgIconsPlugin} from "vite-plugin-svg-icons";
+import { createHtmlPlugin } from 'vite-plugin-html';
 
 //当前是否为生产模式
 const isProd = (mode:string):boolean=>mode=='production';
@@ -33,6 +34,10 @@ return {
             symbolId: 'svg-[dir]-[name]',
             customDomId: '__svg__icons__dom__',
             //使用示例：<svg class="bi" width="16" height="16"><use xlink:href="#bi-check2"></use></svg>
+        }),
+        createHtmlPlugin({
+            minify: true,
+            template: "public/index.html",
         }),
     ],
     resolve: {
