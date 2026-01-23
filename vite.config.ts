@@ -3,7 +3,6 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import {createSvgIconsPlugin} from "vite-plugin-svg-icons";
-import {vitePrerenderPlugin} from "vite-prerender-plugin";
 
 //当前是否为生产模式
 const isProd = (mode:string):boolean=>mode=='production';
@@ -35,12 +34,6 @@ return {
             customDomId: '__svg__icons__dom__',
             //使用示例：<svg class="bi" width="16" height="16"><use xlink:href="#bi-check2"></use></svg>
         }),
-        isProd(mode)
-            ? vitePrerenderPlugin({
-                renderTarget: '#app',
-                prerenderScript: 'config/prerender.js',
-            })
-            :null,
     ],
     resolve: {
         alias: {
