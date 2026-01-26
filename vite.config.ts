@@ -4,6 +4,8 @@ import path from 'path';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import {createSvgIconsPlugin} from "vite-plugin-svg-icons";
 import { createHtmlPlugin } from 'vite-plugin-html';
+import {viteStaticCopy} from "vite-plugin-static-copy";
+//import {minify} from "html-minifier-terser";
 
 //当前是否为生产模式
 const isProd = (mode:string):boolean=>mode=='production';
@@ -38,6 +40,31 @@ return {
         createHtmlPlugin({
             minify: true,
             template: "public/index.html",
+        }),
+        viteStaticCopy({
+            targets:[
+                {
+                    src:"src/static/door/**/*",
+                    dest:"",
+                    /*transform: async (contents, filename) => {
+                        if (filename.endsWith('.html')) {
+                            try {
+                                return await minify(contents.toString(), {
+                                    collapseWhitespace: true,//折叠空白
+                                    removeComments: true,//移除注释
+                                    removeAttributeQuotes: true,//移除属性引号
+                                    minifyCSS: true,//压缩内联css
+                                    minifyJS: true,//压缩内联js
+                                });
+                            } catch (error) {
+                                console.error(`HTML 压缩失败: ${filename}`, error);
+                                return contents;//返回原内容
+                            }
+                        }
+                        return contents;
+                    },*/
+                }
+            ]
         }),
     ],
     resolve: {
