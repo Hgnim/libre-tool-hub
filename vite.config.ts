@@ -4,13 +4,28 @@ import path from 'path';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import {createSvgIconsPlugin} from "vite-plugin-svg-icons";
 import { createHtmlPlugin } from 'vite-plugin-html';
-import {viteStaticCopy} from "vite-plugin-static-copy";
-//import {minify} from "html-minifier-terser";
+import {type TransformOption, viteStaticCopy} from "vite-plugin-static-copy";
+import {minify} from "html-minifier-terser";
 
 //当前是否为生产模式
 const isProd = (mode:string):boolean=>mode=='production';
 //当前是否为开发模式
 const isDev = (mode:string):boolean=>mode=='development';
+
+const vscMinify:TransformOption=async (contents, filename) => {
+    try {
+        return await minify(contents.toString(), {
+            collapseWhitespace: true,//折叠空白
+            removeComments: true,//移除注释
+            removeAttributeQuotes: true,//移除属性引号
+            minifyCSS: true,//压缩内联css
+            minifyJS: true,//压缩内联js
+        });
+    } catch (error) {
+        console.error(`HTML 压缩失败: ${filename}`, error);
+        return contents;//返回原内容
+    }
+}
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) =>{
@@ -42,28 +57,18 @@ return {
             template: "public/index.html",
         }),
         viteStaticCopy({
+            //structured: true,
             targets:[
                 {
-                    src:"src/static/door/**/*",
+                    src:"src/static/door/*.html",
                     dest:"",
-                    /*transform: async (contents, filename) => {
-                        if (filename.endsWith('.html')) {
-                            try {
-                                return await minify(contents.toString(), {
-                                    collapseWhitespace: true,//折叠空白
-                                    removeComments: true,//移除注释
-                                    removeAttributeQuotes: true,//移除属性引号
-                                    minifyCSS: true,//压缩内联css
-                                    minifyJS: true,//压缩内联js
-                                });
-                            } catch (error) {
-                                console.error(`HTML 压缩失败: ${filename}`, error);
-                                return contents;//返回原内容
-                            }
-                        }
-                        return contents;
-                    },*/
-                }
+                    transform: vscMinify,
+                },
+                {
+                    src:"src/static/door/tool/*.html",
+                    dest:"tool",
+                    transform: vscMinify,
+                },
             ]
         }),
     ],
