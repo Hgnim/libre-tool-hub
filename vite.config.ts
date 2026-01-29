@@ -60,12 +60,12 @@ return {
             //structured: true,
             targets:[
                 {
-                    src:"src/static/door/*.html",
+                    src:"src/static/_door/*.html",
                     dest:"",
                     transform: vscMinify,
                 },
                 {
-                    src:"src/static/door/tool/*.html",
+                    src:"src/static/_door/tool/*.html",
                     dest:"tool",
                     transform: vscMinify,
                 },

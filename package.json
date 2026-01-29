@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "copy-files": "node script/copySvgIcons.js",
-    "before-build": "npm run copy-files",
+    "source-file-build": "node script/doorPage/createDoorPage.js",
+    "before-build": "npm run copy-files && npm run source-file-build",
     "dev": "vite",
     "build": "vue-tsc -b && npm run before-build && vite build",
     "build-quick": "vue-tsc -b && vite build",
