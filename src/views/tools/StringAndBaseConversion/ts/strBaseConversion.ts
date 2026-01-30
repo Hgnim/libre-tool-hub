@@ -1,5 +1,5 @@
 import {doConv, type doConvRes} from "@/views/tools/BaseConversion/ts/baseConversion.ts";
-import {isDev} from "@/ts/global/packMode.ts";
+import {isDev} from "@/ts/env/packMode.ts";
 
 
 /**

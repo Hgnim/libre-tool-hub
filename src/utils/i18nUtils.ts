@@ -77,9 +77,11 @@ export async function loadOtherLocale(filePrefix:string,locale:string|string[]|n
 export async function loadGlobalLocale(){
     await loadLocale(i18nGlobal.locale.value);
     const backLoc:string[] = i18nGlobal.fallbackLocale.value as string[];
-    backLoc.forEach((l:string) =>{
-        loadLocale(l);
-    })
+    if (backLoc) {
+        backLoc.forEach((l: string) => {
+            loadLocale(l);
+        })
+    }
 }
 
 export function autoUseI18n(){

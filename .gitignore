@@ -1,5 +1,6 @@
 node_modules
 dist
+.vite-ssg-temp
 
 # Editor directories and files
 .vscode/**/*
@@ -12,4 +13,3 @@ npm-debug.log*
 
 src/assets/_svg
 src/_test
-src/static/_door
