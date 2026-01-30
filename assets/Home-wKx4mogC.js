@@ -1,1 +1,0 @@
-import{u as l}from"./index-DWa8vwIw.js";import{d as n,a as r,b as c,c as u,e as t,t as a,u as o,F as m,o as p}from"./index-D_AJcz6A.js";const s="view_Home",b=n({__name:"Home",setup(i){const{gt:e}=r();return l(e("global.title")),c(s),(_,f)=>(p(),u(m,null,[t("h1",null,a(o(e)(`${s}.tmp`)),1),t("p",null,a(o(e)("global.title")),1)],64))}});export{b as default};
