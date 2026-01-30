@@ -5,7 +5,7 @@ import {useRoute} from "vue-router";
 import {computed, onMounted, onUnmounted, ref, type Ref} from "vue";
 import {marked} from "marked";
 import {getCurrentLocale, getFallbackLocale, localeEvents} from "@/utils/i18nUtils.ts";
-import {isDev} from "@/ts/global/packMode.ts";
+import {isDev} from "@/ts/env/packMode.ts";
 
 const route = useRoute();
 const meta = computed(() => ({

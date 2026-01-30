@@ -1,6 +1,6 @@
 import {type Composer, createI18n, type I18n} from 'vue-i18n';
 import {nextTick, type WritableComputedRef} from 'vue'
-import {isDev, isProd} from "@/ts/global/packMode.ts";
+import {isDev, isProd} from "@/ts/env/packMode.ts";
 import { useCookies } from '@vueuse/integrations/useCookies';
 
 export const i18n:I18n = createI18n({

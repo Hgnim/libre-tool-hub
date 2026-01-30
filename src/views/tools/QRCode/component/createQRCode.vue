@@ -7,7 +7,7 @@ import QRCode, {
   type QRCodeStringType,
 } from 'qrcode'
 import {onMounted, onUnmounted, ref, type Ref} from "vue";
-import { isDev } from "@/ts/global/packMode.ts";
+import { isDev } from "@/ts/env/packMode.ts";
 import { autoUseI18n } from "@/utils/i18nUtils.ts";
 import { autoLoadLocale } from "@/ts/global/vue/autoLoadLocale.ts";
 import { useTitle } from "@vueuse/core";

@@ -1,35 +1,19 @@
 import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
+import fs from 'fs';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import {createSvgIconsPlugin} from "vite-plugin-svg-icons";
 import { createHtmlPlugin } from 'vite-plugin-html';
-import {type TransformOption, viteStaticCopy} from "vite-plugin-static-copy";
-import {minify} from "html-minifier-terser";
+import {isDev,isProd,mode} from "./src/ts/env/packMode-nodejs.ts";
+import renderMode from "./src/ts/env/renderMode-nodejs.ts";
 
-//当前是否为生产模式
-const isProd = (mode:string):boolean=>mode=='production';
-//当前是否为开发模式
-const isDev = (mode:string):boolean=>mode=='development';
-
-const vscMinify:TransformOption=async (contents, filename) => {
-    try {
-        return await minify(contents.toString(), {
-            collapseWhitespace: true,//折叠空白
-            removeComments: true,//移除注释
-            removeAttributeQuotes: true,//移除属性引号
-            minifyCSS: true,//压缩内联css
-            minifyJS: true,//压缩内联js
-        });
-    } catch (error) {
-        console.error(`HTML 压缩失败: ${filename}`, error);
-        return contents;//返回原内容
-    }
-}
+const distPath=path.resolve(__dirname, 'dist');
 
 // https://vite.dev/config/
-export default defineConfig(({ mode }) =>{
-    console.log(`当前模式：${mode}\nisDev: ${isDev(mode)}\nisProd: ${isProd(mode)}`);
+export default defineConfig(({}) =>{
+    console.log(`当前模式：${mode}\nisDev: ${isDev}\nisProd: ${isProd}`);
+    console.log(`当前渲染模式：${renderMode}`);
 return {
     plugins: [
         vue(),
@@ -54,22 +38,6 @@ return {
         }),
         createHtmlPlugin({
             minify: true,
-            template: "public/index.html",
-        }),
-        viteStaticCopy({
-            //structured: true,
-            targets:[
-                {
-                    src:"src/static/_door/*.html",
-                    dest:"",
-                    transform: vscMinify,
-                },
-                {
-                    src:"src/static/_door/tool/*.html",
-                    dest:"tool",
-                    transform: vscMinify,
-                },
-            ]
         }),
     ],
     resolve: {
@@ -91,5 +59,16 @@ return {
             }
         },
     },
+    ssgOptions: renderMode=='ssg' ? {
+        onFinished() {
+            {
+                const targetPath=path.join(distPath, '.vite');
+                if (fs.existsSync(targetPath)) {
+                    fs.rmSync(targetPath, { recursive: true, force: true });
+                    console.log(`[vite.config.ts] 已删除${targetPath}`);
+                }
+            }
+        }
+    } : {},
 };
 })
