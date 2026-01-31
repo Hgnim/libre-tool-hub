@@ -4,9 +4,9 @@ import { QrcodeStream, type DetectedBarcode } from 'vue-qrcode-reader';
 import {autoUseI18n} from "@/utils/i18nUtils.ts";
 import {autoLoadLocale} from "@/ts/global/vue/autoLoadLocale.ts";
 import {useTitle} from "@vueuse/core";
-import Track from "@/views/tools/QRCode/component/ts/scanParseQRCode/track.ts";
-import SelectCamera from "@/views/tools/QRCode/component/ts/scanParseQRCode/selectCamera.ts";
-import Fullscreen from '@/views/tools/QRCode/component/js/scanParseQRCode/fullscreen';
+import Track from "@/views/tools/QRCode/component/scanParseQRCode/ts/track.ts";
+import SelectCamera from "@/views/tools/QRCode/component/scanParseQRCode/ts/selectCamera.ts";
+import Fullscreen from '@/views/tools/QRCode/component/scanParseQRCode/js/fullscreen';
 import {isDev} from "@/ts/env/packMode.ts";
 
 const {gt:t}=autoUseI18n();
@@ -18,11 +18,9 @@ autoLoadLocale(lp,()=>{
 const {selectedConstraints,constraintOptions,onCameraReady}=SelectCamera();
 const {requestFullscreen}=Fullscreen();
 
-const optionsPanel:Ref<HTMLDivElement|null> = ref(null);
 const optionsPanel_show:Ref<boolean> = ref(false);
 const option_light:Ref<HTMLButtonElement|null> = ref(null);
 const option_light_supported:Ref<boolean> = ref(false);
-const option_fullscreen:Ref<HTMLButtonElement|null> = ref(null);
 const option_parseOutput:Ref<HTMLTextAreaElement|null> = ref(null);
 
 const qrcodeStream_scanning:Ref<boolean> = ref(false);
@@ -112,8 +110,7 @@ function onFullscreenChange(){
           {{!qrcodeStream_scanning?t(`${lp}.toggleScanBtn.start`):t(`${lp}.toggleScanBtn.stop`)}}
         </button>
       </div>
-      <div ref="optionsPanel"
-           id="optionsPanel"
+      <div id="optionsPanel"
            class="mb-2 col-12"
            :style="(optionsPanel_show)?{}:{display: 'none'}"
       >
@@ -125,7 +122,6 @@ function onFullscreenChange(){
                     :disabled="!option_light_supported"
             >{{t(`${lp}.option_light`)}}</button>
             <button type="button" class="btn btn-primary"
-                    ref="option_fullscreen"
                     @click="option_fullscreen_click"
             >{{t(`${lp}.option_fullscreen`)}}</button>
           </div>
