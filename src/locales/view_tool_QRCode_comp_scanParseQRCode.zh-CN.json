@@ -1,0 +1,25 @@
+{
+  "view_tool_QRCode_comp_scanParseQRCode": {
+    "title": "扫描二维码-",
+    "qrcodeStream": {
+      "errorMessage": {
+        "NotAllowedError": "未授予相机访问权限",
+        "NotFoundError": "此设备没有摄像头",
+        "NotSupportedError": "需要安全环境(HTTPS, localhost)",
+        "NotReadableError": "摄像头未启用",
+        "OverconstrainedError": "摄像头不兼容",
+        "StreamApiNotSupportedError": "此浏览器不支持流",
+        "InsecureContextError": "摄像头访问仅允许在安全环境中进行，请使用HTTPS或本地主机而非HTTP",
+        "unknow": "未知错误"
+      }
+    },
+    "toggleScanBtn": {
+      "start": "启动扫描",
+      "stop": "停止扫描"
+    },
+    "option_light": "手电筒",
+    "option_fullscreen": "全屏",
+    "cameraSelection": "摄像头选择",
+    "option_parseOutput": "解析输出"
+  }
+}
