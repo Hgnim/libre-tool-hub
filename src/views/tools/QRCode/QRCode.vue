@@ -20,6 +20,12 @@ const route = useRoute();
                    :to="{name: 'tool_qrcode_parse'}"
       >{{t('tab.parse')}}</router-link>
     </li>
+    <li class="nav-item">
+      <router-link class="nav-link"
+                   :class="{'active':(route.name=='tool_qrcode_scanparse')}"
+                   :to="{name: 'tool_qrcode_scanparse'}"
+      >{{t('tab.scanparse')}}</router-link>
+    </li>
   </ul>
   <router-view/>
 </template>
@@ -32,13 +38,15 @@ const route = useRoute();
   "zh-CN": {
     "tab": {
       "create": "生成二维码",
-      "parse": "解析二维码"
+      "parse": "解析二维码",
+      "scanparse": "扫描二维码"
     }
   },
   "en-US": {
     "tab": {
       "create": "Create qrcode",
-      "parse": "Parse qrcode"
+      "parse": "Parse qrcode",
+      "scanparse": "Scan qrcode"
     }
   }
 }

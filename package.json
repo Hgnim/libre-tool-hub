@@ -7,6 +7,7 @@
     "before-build": "npm run copy-files",
     "type-check": "vue-tsc -b",
     "dev": "npm run dev:spa",
+    "dev:host": "cross-env VITE_RENDER_MODE=spa vite --host",
     "dev:spa": "cross-env VITE_RENDER_MODE=spa vite",
     "dev:spa-hash": "cross-env VITE_RENDER_MODE=spa-hash vite",
     "dev:ssg": "cross-env VITE_RENDER_MODE=ssg vite",
@@ -36,6 +37,7 @@
     "universal-cookie": "^7.2.2",
     "vue": "^3.5.24",
     "vue-i18n": "^11.2.2",
+    "vue-qrcode-reader": "^5.7.3",
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
