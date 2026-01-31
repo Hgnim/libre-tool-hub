@@ -42,12 +42,12 @@ async function doMd(){
     ) as string;
   }
 }
+function handleResize(){
+  footerMt_update();
+}
 const container:Ref<HTMLElement|null>=ref(null);
 const footerMt:Ref<number>=ref(0)
-onMounted(async () => {
-  await doMd();
-  localeEvents.on('afterLocaleChange',doMd);
-
+function footerMt_update(){
   footerMt.value=(()=>{
     const min=100;//最小间隔100px
     let out=window.innerHeight-container.value!.offsetHeight;
@@ -56,9 +56,18 @@ onMounted(async () => {
     else
       return out;
   })();
+}
+onMounted(async () => {
+  await doMd();
+  localeEvents.on('afterLocaleChange',doMd);
+
+  window.addEventListener('resize', handleResize)
+  footerMt_update();
 });
 onUnmounted(()=>{
   localeEvents.off('afterLocaleChange',doMd);
+
+  window.removeEventListener('resize', handleResize)
 })
 </script>
 
