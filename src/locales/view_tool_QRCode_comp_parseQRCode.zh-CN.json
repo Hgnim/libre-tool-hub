@@ -2,11 +2,16 @@
   "view_tool_QRCode_comp_parseQRCode": {
     "title": "解析二维码-",
     "qrcodeFileInput_label": "二维码图片文件",
-    "parseBtn": "解析",
     "parseOutput_label": "解析输出",
-    "outputAlert": {
-      "parseFailed": "二维码解析失败",
-      "error": "错误"
+    "qrcodeDropZone": {
+      "errorMessage": {
+        "DropImageFetchError": "无法加载跨域图像",
+        "DropImageDecodeError": "文件格式错误",
+        "unknow": "未知错误"
+      }
+    },
+    "qdz-container": {
+      "text": "将二维码拖到此处"
     }
   }
 }
