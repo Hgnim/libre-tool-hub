@@ -2,8 +2,9 @@
 import {autoUseI18n} from "@/utils/i18nUtils.ts";
 import {autoLoadLocale} from "@/ts/global/vue/autoLoadLocale.ts";
 import {useTitle} from "@vueuse/core";
-import {onUnmounted, type Ref, ref} from "vue";
-import jsQR from 'jsqr';
+import {type Ref, ref} from "vue";
+import {QrcodeDropZone, QrcodeCapture, type DetectedBarcode, type EmittedError} from 'vue-qrcode-reader'
+import {isDev} from "@/ts/env/packMode.ts";
 
 const {gt:t}=autoUseI18n();
 const lp:string="view_tool_QRCode_comp_parseQRCode";
@@ -11,82 +12,40 @@ autoLoadLocale(lp,()=>{
   useTitle(`${t(`${lp}.title`)}${t('global.title')}`);
 });
 
-const tempObjUrl:string[]=[];
-onUnmounted(()=>{
-  tempObjUrl.forEach((url)=>{
-    URL.revokeObjectURL(url);//释放临时url
-  });
-});
-
-const qrcodeFileInput:Ref<HTMLInputElement|null> = ref(null);
-const qrcodeFileInputIsInvalid:Ref<boolean>=ref(false);
-const uploadImage:Ref<HTMLImageElement|null> = ref(null);
 const parseOutput:Ref<HTMLTextAreaElement|null> = ref(null);
-const outputAlert:Ref<HTMLDivElement|null> = ref(null);
 
-async function decodeQrcode(file:File){
-  const imgData = await (async ()=>{
-    const bitmap = await createImageBitmap(file);
-    const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
-    const context = canvas.getContext('2d')!;
-    context.drawImage(bitmap, 0, 0);
-    return context.getImageData(0, 0, canvas.width, canvas.height);
-  })();
-
-  return jsQR(imgData.data, imgData.width, imgData.height);
-}
-
-async function parseQrcode_click(){
-  if(
-        qrcodeFileInput.value
-      &&parseOutput.value
-      &&outputAlert.value
-  ){
-    try{
-      const file= qrcodeFileInput.value.files?.[0];
-      if (file){
-        const qrcode=await decodeQrcode(file);
-        if (qrcode){
-          parseOutput.value.value=qrcode.data
-
-          qrcodeFileInputIsInvalid.value = false;
-          outputAlert.value!.style.display='none';
-        }
-        else{
-          outputAlert.value!.style.display='';
-          outputAlert.value!.innerText=t(`${lp}.outputAlert.parseFailed`);
-        }
-      }else{
-        qrcodeFileInputIsInvalid.value = true;
-      }
-    }catch {
-      outputAlert.value!.style.display='';
-      outputAlert.value!.innerText=t(`${lp}.outputAlert.error`);
-    }
+function onDetectOutput(detectedCodes:DetectedBarcode[]){
+  if (parseOutput.value){
+    detectedCodes.forEach((dc:DetectedBarcode) => {
+      parseOutput.value!.value+=dc.rawValue+'\n';
+    })
+    parseOutput.value.value+='----------\n';
   }
 }
-function qrcodeFileInput_change(){
-  if (
-        uploadImage.value
-      &&parseOutput.value
-  ){
-    try {
-      const file = qrcodeFileInput.value!.files?.[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        uploadImage.value.src = url;
-        tempObjUrl.push(url);
 
-        uploadImage.value.style.display = '';
-        qrcodeFileInputIsInvalid.value = false;
-        parseOutput.value.value='';
-      }
-    }
-    catch {
-      qrcodeFileInputIsInvalid.value = true;
-      uploadImage.value.style.display = 'none';
-    }
+const qdzContainer_drag:Ref<boolean> = ref(false);
+function qrcodeDropZone_onDetect(detectedCodes:DetectedBarcode[]){
+  onDetectOutput(detectedCodes);
+}
+function qrcodeDropZone_onDragOver(isDraggingOver: boolean){
+  qdzContainer_drag.value=isDraggingOver;
+}
+function qrcodeDropZone_onError(error: EmittedError){
+  if (isDev)
+    console.error('[parseQRCode.vue] QrcodeDropZone出现错误：',error);
+  if (parseOutput.value){
+    parseOutput.value.value+=(()=> {
+      const getErrMsg = t(`${lp}.qrcodeDropZone.errorMessage.${error.name}`);
+      if (!getErrMsg.startsWith(lp))
+        return getErrMsg;
+      else
+        return t(`${lp}.qrcodeDropZone.errorMessage.unknow`);
+    })()+'\n';
   }
+}
+
+function qrcodeCapture_onDetect(detectedCodes: DetectedBarcode[]){
+  onDetectOutput(detectedCodes);
 }
 </script>
 
@@ -96,23 +55,22 @@ function qrcodeFileInput_change(){
       <div class="col-12">
         <div class="input-group mb-1">
           <span class="input-group-text">{{t(`${lp}.qrcodeFileInput_label`)}}</span>
-          <input
-              ref="qrcodeFileInput"
-              :class="{ 'is-invalid': qrcodeFileInputIsInvalid }"
-              @change="qrcodeFileInput_change"
-              type="file" class="form-control"
-              accept="image/*">
+          <QrcodeCapture
+              class="form-control"
+              @detect="qrcodeCapture_onDetect"
+          />
         </div>
       </div>
       <div class="col-12 d-flex justify-content-center">
-        <img
-            ref="uploadImage"
-            class="mb-1"
-            style="display: none;"
-            src="" alt="upload image"/>
-      </div>
-      <div class="col-12 d-flex justify-content-center mb-1">
-        <button type="button" class="btn btn-primary" @click="parseQrcode_click">{{t(`${lp}.parseBtn`)}}</button>
+        <QrcodeDropZone
+            @detect="qrcodeDropZone_onDetect"
+            @dragover="qrcodeDropZone_onDragOver"
+            @error="qrcodeDropZone_onError"
+        >
+          <div id="qdz-container" :class="{ 'drag': qdzContainer_drag}">
+            <span class="unSelectable">{{t(`${lp}.qdz-container.text`)}}</span>
+          </div>
+        </QrcodeDropZone>
       </div>
       <div class="col-12">
         <div class="input-group mb-1">
@@ -120,15 +78,25 @@ function qrcodeFileInput_change(){
           <textarea ref="parseOutput" class="form-control" disabled></textarea>
         </div>
       </div>
-      <div class="col-12">
-        <div ref="outputAlert"
-             style="display: none;"
-             class="mb-1 alert alert-danger" role="alert"></div>
-      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-
+#qdz-container{
+  width: 30vw;
+  height: 30vh;
+  border-radius: 14px;
+  border: 2px solid var(--bs-border-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bs-tertiary-bg);
+  &.drag{
+    background-color: var(--bs-secondary-bg);
+  }
+  span{
+    pointer-events:none;
+  }
+}
 </style>
