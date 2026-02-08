@@ -5,8 +5,8 @@ import fs from 'fs';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import {createSvgIconsPlugin} from "vite-plugin-svg-icons";
 import { createHtmlPlugin } from 'vite-plugin-html';
-import {isDev,isProd,mode} from "./src/ts/env/packMode-nodejs.ts";
-import renderMode from "./src/ts/env/renderMode-nodejs.ts";
+import {isDev,isProd,mode} from "./src/ts/env/packMode.node.ts";
+import renderMode from "./src/ts/env/renderMode.node.ts";
 
 const distPath=path.resolve(__dirname, 'dist');
 

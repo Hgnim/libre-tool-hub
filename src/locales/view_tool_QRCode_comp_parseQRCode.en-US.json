@@ -2,11 +2,16 @@
   "view_tool_QRCode_comp_parseQRCode": {
     "title": "Parse QRCode-",
     "qrcodeFileInput_label": "QR code image file",
-    "parseBtn": "Parse",
     "parseOutput_label": "Parsed output",
-    "outputAlert": {
-      "parseFailed": "QR code parsing failed",
-      "error": "error"
+    "qrcodeDropZone": {
+      "errorMessage": {
+        "DropImageFetchError": "You can't load cross-origin images.",
+        "DropImageDecodeError": "That's not an image. That can't be decoded.",
+        "unknow": "Unknow error."
+      }
+    },
+    "qdz-container": {
+      "text": "Drop QRCode here"
     }
   }
 }
