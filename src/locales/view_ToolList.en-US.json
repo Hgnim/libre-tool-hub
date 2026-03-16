@@ -1,0 +1,25 @@
+{
+    "view_ToolList": {
+        "title": "Tool list - ",
+        "baseConv": {
+            "title": "Base conversion",
+            "description": ""
+        },
+        "stringAndBaseConv": {
+            "title": "Text to n-base",
+            "description": ""
+        },
+        "qrcode": {
+            "title": "Qrcode tool",
+            "description": ""
+        },
+        "markdown-pane": {
+            "title": "Markdown Pane tool",
+            "description": ""
+        },
+      "color-picker": {
+        "title":"Color Picker",
+        "description": ""
+      }
+    }
+}
