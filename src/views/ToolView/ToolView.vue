@@ -6,6 +6,7 @@ import {computed, onMounted, onUnmounted, ref, type Ref} from "vue";
 import {marked} from "marked";
 import {getCurrentLocale, getFallbackLocale, localeEvents} from "@/utils/i18nUtils.ts";
 import {isDev} from "@/ts/env/packMode.ts";
+import {appendixMd_get} from "@/views/tools/ts/allMarkdownFiles.ts";
 
 const route = useRoute();
 const meta = computed(() => ({
@@ -14,6 +15,7 @@ const meta = computed(() => ({
 
 const appendix:Ref<HTMLElement|null> = ref(null);
 
+const appendixMd=appendixMd_get();
 async function doMd(){
   if(appendix.value) {
     appendix.value.innerHTML=marked.parse(
@@ -24,7 +26,11 @@ async function doMd(){
           ]
           let resp:Response;
           for (let i=0;i<tryLocale.length;i++) {
-            resp = await fetch(meta.value.appendixMdPath.replace('{lang}',tryLocale[i] as string));
+            resp = await fetch(
+                appendixMd[
+                    meta.value.appendixMdPath.replace('{lang}',tryLocale[i] as string)
+                    ] as string
+            );
             const contentType:string = resp.headers.get('content-type')||'';
             if (resp.ok &&
                 (
