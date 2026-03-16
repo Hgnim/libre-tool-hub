@@ -16,6 +16,10 @@
         "markdown-pane":{
             "title":"markdown pane工具",
             "description": ""
-        }
+        },
+      "color-picker": {
+        "title":"颜色选取器",
+        "description": ""
+      }
     }
 }

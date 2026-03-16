@@ -59,6 +59,14 @@ export default [
                     appendix_mdPath:'/assets/md/views/tools/markdownPane/appendix.{lang}.md',
                 }
             },
+            {
+                path: 'colorpicker',
+                name: 'tool_color-picker',
+                component: () => import('@/views/tools/colorPicker/colorPicker.vue'),
+                meta: {
+                    appendix_mdPath:'/assets/md/views/tools/colorPicker/appendix.{lang}.md',
+                }
+            }
         ],
     },
 ] as RouteRecordRaw[];

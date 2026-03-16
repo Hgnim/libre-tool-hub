@@ -16,6 +16,10 @@
         "markdown-pane": {
             "title": "Markdown Pane tool",
             "description": ""
-        }
+        },
+      "color-picker": {
+        "title":"Color Picker",
+        "description": ""
+      }
     }
 }

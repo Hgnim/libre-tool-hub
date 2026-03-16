@@ -62,6 +62,18 @@ autoLoadLocale(lp, () => {
           </div>
         </div>
       </router-link>
+      <router-link :to="{name: 'tool_color-picker'}"
+                   class="col-3 router-link_toollist"
+      >
+        <div class="card toollist">
+          <div class="card-header">
+            {{t(`${lp}.color-picker.title`)}}
+          </div>
+          <div class="card-body">
+            {{t(`${lp}.color-picker.description`)}}
+          </div>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
