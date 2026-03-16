@@ -10,17 +10,42 @@
 </head>
 <body>
 <noscript>
-    <strong>We're sorry but Libre Tool Hub doesn't work properly without JavaScript enabled.
-        Please enable it to continue.</strong>
-    <strong>自由工具中心 的正常运行需要启用 JavaScript</strong>
+    <style>
+        #app{
+            display: none;
+        }
+        body{
+            background-color: black;
+            color: white;
+        }
+    </style>
+    <strong>We're sorry but <em>Libre Tool Hub</em> doesn't work properly without <em>JavaScript</em> enabled. Please enable it to continue.</strong>
+    <br/>
+    <strong><em>自由工具中心</em>需要启用<em>JavaScript</em>才能正常运作。</strong>
 </noscript>
 <div id="app">
-    <section lang="zh-CN">
-        <p>开源工具中心</p>
-    </section>
-    <section lang="en-US">
-        <p>Open Source Tool Hub</p>
-    </section>
+    <div style="
+    background-color: black;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+">
+        <section style="display: none;" lang="zh">
+            <p>开源工具中心</p>
+        </section>
+        <section style="display: none;" lang="en">
+            <p>Open Source Tool Hub</p>
+        </section>
+
+        <h1>自由工具中心</h1>
+        <em>正在加载……</em>
+        <br/>
+        <h1>Libre Tool Hub</h1>
+        <em>Loading…</em>
+    </div>
 </div>
 <script type="module" src="/src/main.ts"></script>
 </body>
