@@ -1,0 +1,9 @@
+#color-picker{
+  :deep(.vc-chrome-picker){
+    width: unset;
+    box-shadow: unset;
+    .body{
+      background-color: transparent;
+    }
+  }
+}

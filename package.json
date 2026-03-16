@@ -50,6 +50,7 @@
     "@vue/tsconfig": "^0.8.1",
     "bootstrap-icons": "^1.13.1",
     "cross-env": "^10.1.0",
+    "postcss-prefixwrap": "^1.57.2",
     "sass": "^1.97.0",
     "typescript": "~5.9.3",
     "vite": "^7.2.4",
