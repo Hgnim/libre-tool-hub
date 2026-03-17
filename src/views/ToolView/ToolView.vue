@@ -3,51 +3,19 @@ import tvFooter from "@/components/footer/toolview/toolviewFooter.vue";
 
 import {useRoute} from "vue-router";
 import {computed, onMounted, onUnmounted, ref, type Ref} from "vue";
-import {marked} from "marked";
-import {getCurrentLocale, getFallbackLocale, localeEvents} from "@/utils/i18nUtils.ts";
-import {isDev} from "@/ts/env/packMode.ts";
-import {appendixMd_get} from "@/views/tools/ts/allMarkdownFiles.ts";
+import {localeEvents} from "@/utils/i18nUtils.ts";
+import appendixLoader from "@/views/ToolView/ts/appendixLoader.ts";
 
 const route = useRoute();
 const meta = computed(() => ({
-  appendixMdPath: route.meta.appendix_mdPath as string,
+  view:{
+    vueRootPath: route.meta.view_vueRootPath as string,
+  },
 }))
 
 const appendix:Ref<HTMLElement|null> = ref(null);
+const {doLoad:doAppendixLoad} = appendixLoader(appendix,meta.value.view.vueRootPath);
 
-const appendixMd=appendixMd_get();
-async function doMd(){
-  if(appendix.value) {
-    appendix.value.innerHTML=marked.parse(
-        (await (async ():Promise<string> => {
-          const tryLocale:string[]=[
-            ...[getCurrentLocale()],//当前语言
-            ...getFallbackLocale(true),//如果当前语言对应的文件未找到，则寻找回退语言
-          ]
-          let resp:Response;
-          for (let i=0;i<tryLocale.length;i++) {
-            resp = await fetch(
-                appendixMd[
-                    meta.value.appendixMdPath.replace('{lang}',tryLocale[i] as string)
-                    ] as string
-            );
-            const contentType:string = resp.headers.get('content-type')||'';
-            if (resp.ok &&
-                (
-                    //添加内容类型判断，避免未匹配到目标时返回index.html导致fetch误以为请求成功
-                    contentType.includes('text/plain') ||
-                    contentType.includes('text/markdown')
-                )
-            ) {
-              if (isDev) console.debug(`[ToolView.vue] '${meta.value.appendixMdPath.replace('{lang}',tryLocale[i] as string)}'文件已加载`);
-              return resp.text();
-            }
-          }
-          throw new Error('无法请求到文件');
-        })()).toString()
-    ) as string;
-  }
-}
 function handleResize(){
   footerMt_update();
 }
@@ -64,14 +32,14 @@ function footerMt_update(){
   })();
 }
 onMounted(async () => {
-  await doMd();
-  localeEvents.on('afterLocaleChange',doMd);
+  await doAppendixLoad();
+  localeEvents.on('afterLocaleChange',doAppendixLoad);
 
   window.addEventListener('resize', handleResize)
   footerMt_update();
 });
 onUnmounted(()=>{
-  localeEvents.off('afterLocaleChange',doMd);
+  localeEvents.off('afterLocaleChange',doAppendixLoad);
 
   window.removeEventListener('resize', handleResize)
 })
