@@ -15,7 +15,7 @@ export default [
                 name: 'tool_baseConversion',
                 component: () => import('@/views/tools/BaseConversion/BaseConversion.vue'),
                 meta: {
-                    view_vueRootPath:'/src/views/tools/BaseConversion',
+                    toolId:'baseConversion',
                 },
             },
             {
@@ -23,7 +23,7 @@ export default [
                 name: 'tool_stringAndBaseConversion',
                 component:() => import('@/views/tools/StringAndBaseConversion/StringAndBaseConversion.vue'),
                 meta: {
-                    view_vueRootPath: '/src/views/tools/StringAndBaseConversion',
+                    toolId: 'stringAndBaseConversion',
                 }
             },
             {
@@ -31,7 +31,7 @@ export default [
                 name: 'tool_qrcode',
                 component: () => import('@/views/tools/QRCode/QRCode.vue'),
                 meta: {
-                    view_vueRootPath:'/src/views/tools/QRCode',
+                    toolId:'qrcode',
                 },
                 children:[
                     {
@@ -56,7 +56,7 @@ export default [
                 name: 'tool_markdown-pane',
                 component: () => import('@/views/tools/markdownPane/markdownPane.vue'),
                 meta: {
-                    view_vueRootPath:'/src/views/tools/markdownPane',
+                    toolId:'markdownPane',
                 }
             },
             {
@@ -64,7 +64,7 @@ export default [
                 name: 'tool_color-picker',
                 component: () => import('@/views/tools/colorPicker/colorPicker.vue'),
                 meta: {
-                    view_vueRootPath:'/src/views/tools/colorPicker',
+                    toolId:'colorPicker',
                 }
             }
         ],

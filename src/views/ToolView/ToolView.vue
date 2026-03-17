@@ -8,13 +8,11 @@ import appendixLoader from "@/views/ToolView/ts/appendixLoader.ts";
 
 const route = useRoute();
 const meta = computed(() => ({
-  view:{
-    vueRootPath: route.meta.view_vueRootPath as string,
-  },
+  toolId: route.meta.toolId as string,
 }))
 
 const appendix:Ref<HTMLElement|null> = ref(null);
-const {doLoad:doAppendixLoad} = appendixLoader(appendix,meta.value.view.vueRootPath);
+const {doLoad:doAppendixLoad} = appendixLoader(appendix,meta.value.toolId);
 
 function handleResize(){
   footerMt_update();

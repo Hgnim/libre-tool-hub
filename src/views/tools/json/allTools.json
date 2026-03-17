@@ -1,0 +1,56 @@
+{
+  "allToolsId": [
+    "baseConversion",
+    "colorPicker",
+    "markdownPane",
+    "qrcode",
+    "stringAndBaseConversion"
+  ],
+  "allTools": {
+    "baseConversion": {
+      "path": {
+        "explanationJson": "/src/views/tools/BaseConversion/json/explanation.{lang}.json",
+        "appendixMd": "/src/views/tools/BaseConversion/md/appendix.{lang}.md"
+      },
+      "router": {
+        "name": "tool_baseConversion"
+      }
+    },
+    "colorPicker": {
+      "path": {
+        "explanationJson": "/src/views/tools/colorPicker/json/explanation.{lang}.json",
+        "appendixMd": "/src/views/tools/colorPicker/md/appendix.{lang}.md"
+      },
+      "router": {
+        "name": "tool_color-picker"
+      }
+    },
+    "markdownPane": {
+      "path": {
+        "explanationJson": "/src/views/tools/markdownPane/json/explanation.{lang}.json",
+        "appendixMd": "/src/views/tools/markdownPane/md/appendix.{lang}.md"
+      },
+      "router": {
+        "name": "tool_markdown-pane"
+      }
+    },
+    "qrcode": {
+      "path": {
+        "explanationJson": "/src/views/tools/QRCode/json/explanation.{lang}.json",
+        "appendixMd": "/src/views/tools/QRCode/md/appendix.{lang}.md"
+      },
+      "router": {
+        "name": "tool_qrcode"
+      }
+    },
+    "stringAndBaseConversion": {
+      "path": {
+        "explanationJson": "/src/views/tools/StringAndBaseConversion/json/explanation.{lang}.json",
+        "appendixMd": "/src/views/tools/StringAndBaseConversion/md/appendix.{lang}.md"
+      },
+      "router": {
+        "name": "tool_stringAndBaseConversion"
+      }
+    }
+  }
+}

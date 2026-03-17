@@ -10,3 +10,9 @@ export function explanationJson_get():Record<string, string>{
         as: 'url',
     });
 }
+export function json_get():Record<string, string>{
+    return import.meta.glob('@/views/tools/json/**/*.json', {
+        eager: true,
+        as: 'url',
+    });
+}
