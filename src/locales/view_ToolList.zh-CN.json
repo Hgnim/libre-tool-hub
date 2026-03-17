@@ -1,25 +1,5 @@
 {
     "view_ToolList":{
-        "title": "工具列表-",
-        "baseConv": {
-            "title":"进制转换",
-            "description":""
-        },
-        "stringAndBaseConv": {
-            "title":"文本转进制",
-            "description": ""
-        },
-        "qrcode": {
-            "title":"二维码工具",
-            "description": ""
-        },
-        "markdown-pane":{
-            "title":"markdown pane工具",
-            "description": ""
-        },
-      "color-picker": {
-        "title":"颜色选取器",
-        "description": ""
-      }
+        "title": "工具列表-"
     }
 }

@@ -7,6 +7,7 @@ import {createSvgIconsPlugin} from "vite-plugin-svg-icons";
 import { createHtmlPlugin } from 'vite-plugin-html';
 import {isDev,isProd,mode} from "./src/ts/env/packMode.node.ts";
 import renderMode from "./src/ts/env/renderMode.node.ts";
+//import postcssPrefixwrap from 'postcss-prefixwrap';
 
 const distPath=path.resolve(__dirname, 'dist');
 
@@ -58,6 +59,13 @@ return {
                 ]
             }
         },
+        /*postcss: {
+            plugins: [
+                postcssPrefixwrap(
+
+                ),
+            ],
+        },*/
     },
     ssgOptions: renderMode=='ssg' ? {
         onFinished() {

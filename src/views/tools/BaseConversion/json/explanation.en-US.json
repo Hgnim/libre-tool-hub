@@ -1,0 +1,10 @@
+{
+  "title": {
+    "raw": "Base Conversion Tool",
+    "md": "## Base Conversion Tool"
+  },
+  "description": {
+    "raw": "Supports conversion between binary, octal, decimal, and hexadecimal",
+    "md": "Supports conversion between **binary**, **octal**, **decimal**, and **hexadecimal**"
+  }
+}

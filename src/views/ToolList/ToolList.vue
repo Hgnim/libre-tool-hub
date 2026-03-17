@@ -1,76 +1,74 @@
 <script setup lang="ts">
 import { autoLoadLocale } from "@/ts/global/vue/autoLoadLocale";
-import {autoUseI18n} from "@/utils/i18nUtils.ts";
+import {autoUseI18n, getCurrentLocale, getFallbackLocale, localeEvents} from "@/utils/i18nUtils.ts";
 import {useTitle} from "@vueuse/core";
+import type {AllTools, AllTools_Tool} from "@/views/tools/json/type/allTools.type.ts";
+import allToolsJsonFileGet from "@/views/tools/ts/allToolsJsonFileGet.ts";
+import {onMounted, onUnmounted, ref, type Ref} from "vue";
+import {explanationJson_get} from "@/views/tools/ts/assets.ts";
+import explanationJsonFileGet from "@/views/tools/ts/explanationJsonFileGet.ts";
 
 const {gt:t}=autoUseI18n();
 const lp:string="view_ToolList";
+function onLocaleChanged(){
+  initAllExplanation();
+}
 
 autoLoadLocale(lp, () => {
   useTitle(`${t(`${lp}.title`)}${t('global.title')}`);
 });
+
+onMounted(()=>{
+  localeEvents.on("afterLocaleChange", onLocaleChanged);
+});
+onUnmounted(()=>{
+  localeEvents.off("afterLocaleChange", onLocaleChanged);
+});
+
+const allTools:Ref<AllTools|undefined>=ref(undefined);
+const allExplanation:Ref<any>=ref({});
+const explanationJson=explanationJson_get();
+async function initAllExplanation(){
+  if (allTools.value) {
+    for (const tid of allTools.value.allToolsId) {
+      const tryLocale: string[] = [
+        ...[getCurrentLocale()],//当前语言
+        ...getFallbackLocale(true),//如果当前语言对应的文件未找到，则寻找回退语言
+      ];
+      for (let i = 0; i < tryLocale.length; i++) {
+        const res = await explanationJsonFileGet(
+            ((allTools.value!.allTools as any)[tid]! as AllTools_Tool).path.explanationJson
+                .replace('{lang}', tryLocale[i] as string),
+            explanationJson
+        );
+        if (res.code==0) {
+          allExplanation.value[tid] = res.content;
+          break;
+        }
+      }
+    }
+  }
+}
+onMounted(async ()=>{
+  allTools.value=(await allToolsJsonFileGet()).content;
+  await initAllExplanation();
+})
 </script>
 
 <template>
   <div class="container pt-2">
     <div class="row">
-      <router-link :to="{name: 'tool_baseConversion'}"
-                   class="col-3 router-link_toollist"
+      <router-link class="col-3 router-link_toollist"
+                   v-for="(tid,index) in allTools?.allToolsId"
+                   :key="index"
+                   :to="{name: ((allTools?.allTools as any)[tid] as AllTools_Tool).router.name}"
       >
         <div class="card toollist">
           <div class="card-header">
-            {{t(`${lp}.baseConv.title`)}}
+            {{allExplanation[tid]?.title.raw}}
           </div>
           <div class="card-body">
-            {{t(`${lp}.baseConv.description`)}}
-          </div>
-        </div>
-      </router-link>
-      <router-link :to="{name: 'tool_stringAndBaseConversion'}"
-                   class="col-3 router-link_toollist"
-      >
-        <div class="card toollist">
-          <div class="card-header">
-            {{t(`${lp}.stringAndBaseConv.title`)}}
-          </div>
-          <div class="card-body">
-            {{t(`${lp}.stringAndBaseConv.description`)}}
-          </div>
-        </div>
-      </router-link>
-      <router-link :to="{name: 'tool_qrcode'}"
-                   class="col-3 router-link_toollist"
-      >
-        <div class="card toollist">
-          <div class="card-header">
-            {{t(`${lp}.qrcode.title`)}}
-          </div>
-          <div class="card-body">
-            {{t(`${lp}.qrcode.description`)}}
-          </div>
-        </div>
-      </router-link>
-      <router-link :to="{name: 'tool_markdown-pane'}"
-                   class="col-3 router-link_toollist"
-      >
-        <div class="card toollist">
-          <div class="card-header">
-            {{t(`${lp}.markdown-pane.title`)}}
-          </div>
-          <div class="card-body">
-            {{t(`${lp}.markdown-pane.description`)}}
-          </div>
-        </div>
-      </router-link>
-      <router-link :to="{name: 'tool_color-picker'}"
-                   class="col-3 router-link_toollist"
-      >
-        <div class="card toollist">
-          <div class="card-header">
-            {{t(`${lp}.color-picker.title`)}}
-          </div>
-          <div class="card-body">
-            {{t(`${lp}.color-picker.description`)}}
+            {{allExplanation[tid]?.description.raw}}
           </div>
         </div>
       </router-link>

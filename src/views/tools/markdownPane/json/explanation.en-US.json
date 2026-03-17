@@ -1,0 +1,10 @@
+{
+  "title": {
+    "raw": "Markdown Pane preview tool",
+    "md": "# Markdown Pane preview tool"
+  },
+  "description": {
+    "raw": "Used the Mardown Pane syntax",
+    "md": "Used the [Mardown Pane syntax](https://github.com/Hgnim/markdown-pane)"
+  }
+}

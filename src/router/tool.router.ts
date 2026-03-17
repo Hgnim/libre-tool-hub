@@ -15,7 +15,7 @@ export default [
                 name: 'tool_baseConversion',
                 component: () => import('@/views/tools/BaseConversion/BaseConversion.vue'),
                 meta: {
-                    appendix_mdPath:'/assets/md/views/tools/BaseConversion/appendix.{lang}.md',
+                    toolId:'baseConversion',
                 },
             },
             {
@@ -23,7 +23,7 @@ export default [
                 name: 'tool_stringAndBaseConversion',
                 component:() => import('@/views/tools/StringAndBaseConversion/StringAndBaseConversion.vue'),
                 meta: {
-                    appendix_mdPath: '/assets/md/views/tools/StringAndBaseConversion/appendix.{lang}.md',
+                    toolId: 'stringAndBaseConversion',
                 }
             },
             {
@@ -31,7 +31,7 @@ export default [
                 name: 'tool_qrcode',
                 component: () => import('@/views/tools/QRCode/QRCode.vue'),
                 meta: {
-                    appendix_mdPath:'/assets/md/views/tools/QRCode/appendix.{lang}.md',
+                    toolId:'qrcode',
                 },
                 children:[
                     {
@@ -56,7 +56,7 @@ export default [
                 name: 'tool_markdown-pane',
                 component: () => import('@/views/tools/markdownPane/markdownPane.vue'),
                 meta: {
-                    appendix_mdPath:'/assets/md/views/tools/markdownPane/appendix.{lang}.md',
+                    toolId:'markdownPane',
                 }
             },
             {
@@ -64,7 +64,7 @@ export default [
                 name: 'tool_color-picker',
                 component: () => import('@/views/tools/colorPicker/colorPicker.vue'),
                 meta: {
-                    appendix_mdPath:'/assets/md/views/tools/colorPicker/appendix.{lang}.md',
+                    toolId:'colorPicker',
                 }
             }
         ],
