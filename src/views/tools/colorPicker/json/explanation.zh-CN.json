@@ -4,7 +4,7 @@
     "md": "## 颜色选取器"
   },
   "description": {
-    "raw": "",
-    "md": ""
+    "raw": "支持十六进制、RGB、RGBA、百分比RGB、HSV、HSL",
+    "md": "支持**十六进制**、**RGB**、**RGBA**、**百分比RGB**、**HSV**、**HSL**"
   }
 }
