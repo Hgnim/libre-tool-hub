@@ -66,6 +66,14 @@ export default [
                 meta: {
                     toolId:'colorPicker',
                 }
+            },
+            {
+                path: 'mouseAiming',
+                name: 'tool_mouse-aiming',
+                component:()=>import('@/views/tools/mouseAiming/mouseAiming.vue'),
+                meta: {
+                    toolId:'mouseAiming',
+                }
             }
         ],
     },
